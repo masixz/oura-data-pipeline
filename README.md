@@ -45,6 +45,13 @@ The code is public. The data is not.
 - Published analysis contains aggregated statistics and charts only
 - See [PRIVACY.md](PRIVACY.md)
 
+## Dashboard
+
+Built in Metabase (runs in the same docker compose) on top of the dbt staging
+layer:
+
+![Metabase dashboard](assets/metabase_dashboard.png)
+
 ## Architecture
 
 ```
