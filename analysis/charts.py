@@ -12,7 +12,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
-import psycopg2
+from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -41,9 +41,11 @@ plt.rcParams.update({
 })
 
 
+ENGINE = create_engine(os.environ["DATABASE_URL"])
+
+
 def q(sql: str) -> pd.DataFrame:
-    with psycopg2.connect(os.environ["DATABASE_URL"]) as conn:
-        return pd.read_sql(sql, conn)
+    return pd.read_sql(sql, ENGINE)
 
 
 def chart_three_signals():
