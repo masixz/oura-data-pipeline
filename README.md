@@ -15,12 +15,13 @@ activity, heart rate, and stress data, end to end.
 
 ![Sleep score, HRV and lowest heart rate, monthly](assets/three_signals.png)
 
-**The winter 2023-24 dip is real and physiological.** Sleep score, HRV, and
-night heart rate all degraded together and bottomed out around February-March
-2024: average HRV fell from the high 60s (spring 2023) to ~33 ms, and average
-lowest night heart rate peaked at ~62 bpm. All three signals recovered through
-2025. Three independent metrics telling the same story is what separates a
-real change from score noise.
+**The 2024 dip is real and physiological.** Sleep score, HRV, and night
+heart rate degraded together from late 2023 and bottomed out in spring 2024:
+rolling HRV sat below -1.5 sigma of its own distribution for 44 consecutive
+days (bottoming at -2.6 sigma), and all three signals recovered through 2025.
+Full statistics in [notebooks/01_sleep_statistics.ipynb](notebooks/01_sleep_statistics.ipynb),
+including the Welch t-tests and the falsified late-bedtime hypothesis behind
+the Sunday-night effect.
 
 ![Average sleep score by night of week](assets/weekday_scores.png)
 
