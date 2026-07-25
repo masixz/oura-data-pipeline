@@ -49,12 +49,18 @@ The code is public. The data is not.
 
 ```
 Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
-                                              raw (JSONB) -> staging views -> analysis charts
+                                              raw (JSONB) -> dbt staging models -> notebooks + charts
 ```
 
-- `ingestion/` — OAuth2 flow + idempotent API ingestion (upsert on document id; re-runs never duplicate)
-- `db/` — schema and staging layer: typed SQL views over raw JSONB
-- `analysis/` — chart generation from the staging layer (aggregates only)
+- `ingestion/` — OAuth2 flow + idempotent API ingestion (upsert on document id; re-runs never duplicate), covered by pytest
+- `dbt_project/` — staging layer as dbt models: typed views over raw JSONB, with schema tests (unique, not_null, score ranges)
+- `notebooks/` — statistics (01) and forecasting (02), executed with outputs
+- `analysis/` — README chart generation (aggregates only)
+
+```bash
+make refresh   # ingest -> dbt build -> charts
+make test      # pytest
+```
 
 ## Setup
 
@@ -72,6 +78,6 @@ cp .env.example .env
 # 4. One-time OAuth authorization (opens your browser)
 python -m ingestion.auth
 
-# 5. Pull your data
-python -m ingestion.ingest --start 2022-01-01
+# 5. Pull your data, build the staging layer
+make refresh
 ```

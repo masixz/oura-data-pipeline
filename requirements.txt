@@ -1,3 +1,11 @@
 requests
 psycopg2-binary
 python-dotenv
+sqlalchemy
+pandas
+matplotlib
+scipy
+scikit-learn
+dbt-postgres
+pytest
+jupyter
