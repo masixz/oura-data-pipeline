@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: oura_postgres
+    environment:
+      POSTGRES_USER: oura
+      POSTGRES_PASSWORD: oura
+      POSTGRES_DB: oura
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - oura_pgdata:/var/lib/postgresql/data
+
+volumes:
+  oura_pgdata:
