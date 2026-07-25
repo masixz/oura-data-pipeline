@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: Raw Oura API documents, one JSONB payload per document
+    tables:
+      - name: oura_documents
+        columns:
+          - name: doc_id
+            data_tests: [not_null]
+          - name: payload
+            data_tests: [not_null]

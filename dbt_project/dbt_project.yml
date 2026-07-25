@@ -1,0 +1,13 @@
+name: oura_pipeline
+version: "1.0"
+profile: oura_pipeline
+
+model-paths: ["models"]
+target-path: target
+clean-targets: [target, dbt_packages]
+
+models:
+  oura_pipeline:
+    staging:
+      +schema: staging
+      +materialized: view
