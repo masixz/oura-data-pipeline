@@ -2,12 +2,19 @@
 
 Run: python -m ingestion.auth
 
-Opens the browser, you approve your own app, the local server catches the
-redirect and exchanges the code for tokens. Tokens land in tokens.json
-(gitignored). After this, ingestion refreshes tokens by itself.
+Flow: the script opens the Oura consent page in your browser. After you
+approve, the browser redirects to https://localhost:8765/callback and shows
+a "can't connect" page — that is expected, nothing listens there. The
+authorization code is in the address bar: copy the FULL URL from the browser
+and paste it into the terminal. The script exchanges it for tokens and saves
+them to tokens.json (gitignored). After this, ingestion refreshes tokens by
+itself.
+
+Why no local server: Oura requires HTTPS redirect URIs, and running a
+self-signed HTTPS server locally adds friction for zero gain in a
+single-user app. Copy-paste once and forget.
 """
 
-import http.server
 import json
 import os
 import secrets
@@ -19,28 +26,12 @@ from dotenv import load_dotenv
 
 AUTHORIZE_URL = "https://cloud.ouraring.com/oauth/authorize"
 TOKEN_URL = "https://api.ouraring.com/oauth/token"
-REDIRECT_URI = "http://localhost:8765/callback"
+REDIRECT_URI = "https://localhost:8765/callback"
 TOKENS_FILE = os.path.join(os.path.dirname(__file__), "..", "tokens.json")
 
 load_dotenv()
 CLIENT_ID = os.environ["OURA_CLIENT_ID"]
 CLIENT_SECRET = os.environ["OURA_CLIENT_SECRET"]
-
-_received = {}
-
-
-class CallbackHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        query = urllib.parse.urlparse(self.path).query
-        params = urllib.parse.parse_qs(query)
-        _received.update({k: v[0] for k, v in params.items()})
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html")
-        self.end_headers()
-        self.wfile.write(b"<h2>Authorized. You can close this tab.</h2>")
-
-    def log_message(self, *args):
-        pass  # keep the terminal quiet
 
 
 def save_tokens(tokens: dict) -> None:
@@ -59,18 +50,25 @@ def main():
     }
     url = f"{AUTHORIZE_URL}?{urllib.parse.urlencode(params)}"
     print("Opening browser for authorization...")
+    print("If it does not open, visit this URL manually:\n")
+    print(url + "\n")
     webbrowser.open(url)
 
-    server = http.server.HTTPServer(("localhost", 8765), CallbackHandler)
-    while "code" not in _received:
-        server.handle_request()
+    print("After approving, the browser shows a 'can't connect' page.")
+    print("That is expected. Copy the FULL URL from the address bar.\n")
+    pasted = input("Paste the redirect URL here: ").strip()
 
-    if _received.get("state") != state:
-        raise SystemExit("State mismatch — possible CSRF, aborting.")
+    query = urllib.parse.urlparse(pasted).query
+    received = {k: v[0] for k, v in urllib.parse.parse_qs(query).items()}
+
+    if "code" not in received:
+        raise SystemExit("No code found in that URL. Copy the whole address bar.")
+    if received.get("state") != state:
+        raise SystemExit("State mismatch — restart the script and try again.")
 
     resp = requests.post(TOKEN_URL, data={
         "grant_type": "authorization_code",
-        "code": _received["code"],
+        "code": received["code"],
         "redirect_uri": REDIRECT_URI,
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
