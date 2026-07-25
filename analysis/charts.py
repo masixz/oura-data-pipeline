@@ -98,8 +98,7 @@ def chart_weekday():
     ax.set_ylim(65, 76)
     ax.grid(axis="x", visible=False)
 
-    lo, hi = df["score"].idxmin(), df["score"].idxmax()
-    for i in (lo, hi):
+    for i in range(len(df)):
         ax.annotate(f"{df['score'][i]:.1f}", (labels[i], df["score"][i]),
                     ha="center", va="bottom", fontsize=10, color=INK_2,
                     xytext=(0, 7), textcoords="offset points")
