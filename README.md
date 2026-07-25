@@ -30,7 +30,12 @@ Monday night) across four years of data. Oura assigns each sleep to the
 wake-up day, so this is the classic Sunday-night effect, visible in n=173
 Sunday nights rather than anecdote.
 
-More analysis in `analysis/` as this develops.
+**Can tonight's sleep be predicted before bed?** Partly: a random forest on
+pre-bed features (bedtime, day of week, recent history, day's activity) beats
+the naive baselines by ~13% (MAE 7.9 vs 9.1) on a time-based test split.
+Bedtime is the biggest controllable lever. Full modeling with baselines and
+honest evaluation in
+[notebooks/02_sleep_forecasting.ipynb](notebooks/02_sleep_forecasting.ipynb).
 
 ## Privacy
 
