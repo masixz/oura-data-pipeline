@@ -1,24 +1,22 @@
-"""Pull Oura data into a local SQLite database.
+"""Pull Oura data into PostgreSQL.
 
 Run: python -m ingestion.ingest --start 2022-01-01
 
 Idempotent: every document is upserted on (endpoint, doc_id), so re-running
 never creates duplicates. Heart rate is high-volume time series and is
-fetched separately with --heartrate.
-
-Storage is SQLite (data/oura.db, gitignored) — zero setup, stdlib only.
-The schema and upsert pattern translate 1:1 to PostgreSQL later.
+fetched separately with --heartrate (defaults to the last 30 days).
 """
 
 import argparse
 import datetime as dt
 import json
 import os
-import sqlite3
+
+import psycopg2
+import psycopg2.extras
+from dotenv import load_dotenv
 
 from ingestion.client import OuraClient
-
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "oura.db")
 
 # Daily-level endpoints: small volume, safe to fetch full history
 DAILY_ENDPOINTS = [
@@ -32,25 +30,14 @@ DAILY_ENDPOINTS = [
     "session",
 ]
 
-SCHEMA = """
-CREATE TABLE IF NOT EXISTS oura_documents (
-    endpoint     TEXT NOT NULL,
-    doc_id       TEXT NOT NULL,
-    day          TEXT,
-    payload      TEXT NOT NULL,
-    ingested_at  TEXT NOT NULL DEFAULT (datetime('now')),
-    PRIMARY KEY (endpoint, doc_id)
-);
-CREATE INDEX IF NOT EXISTS idx_documents_endpoint_day
-    ON oura_documents (endpoint, day);
+UPSERT_SQL = """
+    INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload)
+    VALUES %s
+    ON CONFLICT (endpoint, doc_id)
+    DO UPDATE SET payload = EXCLUDED.payload, ingested_at = now()
 """
 
-UPSERT = """
-INSERT INTO oura_documents (endpoint, doc_id, day, payload)
-VALUES (?, ?, ?, ?)
-ON CONFLICT (endpoint, doc_id)
-DO UPDATE SET payload = excluded.payload, ingested_at = datetime('now')
-"""
+load_dotenv()
 
 
 def doc_day(doc: dict) -> str | None:
@@ -66,7 +53,10 @@ def upsert(conn, endpoint: str, docs: list[dict]) -> int:
         (endpoint, str(d.get("id", doc_day(d))), doc_day(d), json.dumps(d))
         for d in docs
     ]
-    conn.executemany(UPSERT, rows)
+    if not rows:
+        return 0
+    with conn.cursor() as cur:
+        psycopg2.extras.execute_values(cur, UPSERT_SQL, rows)
     conn.commit()
     return len(rows)
 
@@ -79,11 +69,8 @@ def main():
                         help="also fetch raw heart rate time series (high volume)")
     args = parser.parse_args()
 
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    conn.executescript(SCHEMA)
-
     client = OuraClient()
+    conn = psycopg2.connect(os.environ["DATABASE_URL"])
 
     for endpoint in DAILY_ENDPOINTS:
         docs = list(client.fetch_all(endpoint, args.start, args.end))
@@ -91,6 +78,7 @@ def main():
         print(f"{endpoint:20s} {n:6d} documents")
 
     if args.heartrate:
+        # Heart rate endpoint uses datetimes and returns 5-min interval data.
         start_dt = f"{args.start}T00:00:00+00:00"
         end_dt = f"{args.end}T23:59:59+00:00"
         docs = [
@@ -102,7 +90,7 @@ def main():
         print(f"{'heartrate':20s} {n:6d} documents")
 
     conn.close()
-    print(f"\nDone. Database: {os.path.abspath(DB_PATH)}")
+    print("Done.")
 
 
 if __name__ == "__main__":
