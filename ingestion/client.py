@@ -21,12 +21,17 @@ class OuraClient:
             self.tokens = json.load(f)
 
     def _refresh(self):
-        resp = requests.post(TOKEN_URL, data={
+        data = {
             "grant_type": "refresh_token",
             "refresh_token": self.tokens["refresh_token"],
-            "client_id": self.client_id,
+        }
+        resp = requests.post(TOKEN_URL, data={
+            **data, "client_id": self.client_id,
             "client_secret": self.client_secret,
         })
+        if resp.status_code in (400, 401):
+            resp = requests.post(TOKEN_URL, data=data,
+                                 auth=(self.client_id, self.client_secret))
         resp.raise_for_status()
         self.tokens = resp.json()
         with open(TOKENS_FILE, "w") as f:

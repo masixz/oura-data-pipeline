@@ -26,7 +26,7 @@ from dotenv import load_dotenv
 
 AUTHORIZE_URL = "https://cloud.ouraring.com/oauth/authorize"
 TOKEN_URL = "https://api.ouraring.com/oauth/token"
-REDIRECT_URI = "https://localhost:8765/callback"
+REDIRECT_URI = "https://github.com/masixz/oura-data-pipeline"
 TOKENS_FILE = os.path.join(os.path.dirname(__file__), "..", "tokens.json")
 
 load_dotenv()
@@ -54,8 +54,8 @@ def main():
     print(url + "\n")
     webbrowser.open(url)
 
-    print("After approving, the browser shows a 'can't connect' page.")
-    print("That is expected. Copy the FULL URL from the address bar.\n")
+    print("After approving, the browser lands on the GitHub repo page.")
+    print("The address bar now contains ?code=... - copy the FULL URL.\n")
     pasted = input("Paste the redirect URL here: ").strip()
 
     query = urllib.parse.urlparse(pasted).query
@@ -66,14 +66,23 @@ def main():
     if received.get("state") != state:
         raise SystemExit("State mismatch — restart the script and try again.")
 
-    resp = requests.post(TOKEN_URL, data={
+    data = {
         "grant_type": "authorization_code",
         "code": received["code"],
         "redirect_uri": REDIRECT_URI,
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
+    }
+    # Try credentials in the POST body first, then HTTP Basic auth —
+    # Oura's auth server has accepted different styles over time.
+    resp = requests.post(TOKEN_URL, data={
+        **data, "client_id": CLIENT_ID, "client_secret": CLIENT_SECRET,
     })
-    resp.raise_for_status()
+    if resp.status_code in (400, 401):
+        print(f"Body-auth failed ({resp.status_code}), retrying with Basic auth...")
+        resp = requests.post(TOKEN_URL, data=data,
+                             auth=(CLIENT_ID, CLIENT_SECRET))
+    if not resp.ok:
+        print(f"Token exchange failed: {resp.status_code}\n{resp.text}")
+        raise SystemExit(1)
     save_tokens(resp.json())
     print("Done. Now run: python -m ingestion.ingest --start 2022-01-01")
 
