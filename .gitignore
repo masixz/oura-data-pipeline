@@ -13,6 +13,13 @@ exports/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.pytest_cache/
+
+# dbt build artifacts, logs and local state
+dbt_project/target/
+dbt_project/logs/
+dbt_project/dbt_packages/
+dbt_project/.user.yml
 
 # OS
 .DS_Store
