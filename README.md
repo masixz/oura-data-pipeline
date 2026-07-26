@@ -204,7 +204,7 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
                                               raw (JSONB) -> dbt staging models -> notebooks + charts
 ```
 
-- `ingestion/` — OAuth2 flow + idempotent API ingestion (upsert on document id; re-runs never duplicate), covered by pytest
+- `ingestion/` — OAuth2 flow plus incremental API ingestion, covered by pytest. Each endpoint resumes from the newest day it already holds minus a 10-day overlap, so a daily run fetches about 11 days instead of 1,433. The overlap exists because Oura revises recent days as sleep staging finalises, and a strict high-water mark would freeze the first version of every recent night. The watermark is per endpoint rather than global: `session` last produced data in July 2025, so one shared watermark would never look for it again. The upsert is conditional, so a document whose payload has not changed is not rewritten, which means `ingested_at` records when a document last *changed* and `dbt source freshness` reports whether data is actually arriving rather than whether the job ran
 - `dbt_project/` — two layers. **Staging**: typed views over the raw JSONB, one per endpoint, with schema tests. **Marts**: three tables at the grains the questions are actually asked at, with the feature logic the notebooks used to duplicate in pandas. 46 tests across both, plus `dbt_utils`
   - `mart_sleep_daily`, one row per night: lags, trailing windows, within-week deviations, bedtime in local hours, coverage flags
   - `mart_sleep_weekly`, one row per week: timing and consistency side by side, week-over-week deltas, quartiles, and a gaps-and-islands grouping that turns "a bad spell" into a queryable object. The longest run below my own average is 17 consecutive weeks, starting three months before the window notebook 01 tested
@@ -214,9 +214,22 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
 - `.github/workflows/ci.yml` — every push to main and every pull request runs the test suite and `dbt build` against a Postgres service container, seeded with synthetic fixtures in `tests/fixtures/` so the schema tests check the JSONB extraction instead of passing against an empty table
 
 ```bash
-make refresh   # ingest -> dbt deps + build -> charts
-make test      # pytest
+make refresh     # ingest -> dbt deps + build -> charts
+make test        # pytest
+make freshness   # warn if no new or revised data in 36h
+make backfill    # refetch the whole history from scratch
 ```
+
+**Why the marts are not incremental**, since it is the obvious next question:
+not volume, but correctness. Every mart holds at least one unbounded window
+function, `percent_rank` over all nights, `ntile` over all workouts, `avg() over
+()` for the all-time mean, and the `row_number` pair behind the spell grouping.
+An incremental run sees only its lookback slice, so those would be computed
+against the last N days and written into a column labelled all-time. That fails
+silently. A lookback rescues trailing 7- and 28-day aggregates; it cannot rescue
+a global ranking. Doing it properly means separating the bounded features from
+the global ones first, and at 1,244 rows a full refresh takes 0.14s. The
+ingestion is incremental, which is where the cost actually was.
 
 ## Setup
 

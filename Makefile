@@ -1,4 +1,4 @@
-.PHONY: up deps ingest transform test charts refresh
+.PHONY: up deps ingest backfill freshness transform test charts refresh
 
 up:            ## start local Postgres
 	docker compose up -d
@@ -6,8 +6,14 @@ up:            ## start local Postgres
 deps:          ## install dbt packages (dbt_utils)
 	.venv/bin/dbt deps --project-dir dbt_project --profiles-dir dbt_project
 
-ingest:        ## pull latest data from the Oura API
-	.venv/bin/python -m ingestion.ingest --start 2022-01-01
+ingest:        ## pull new and revised data (incremental, resumes per endpoint)
+	.venv/bin/python -m ingestion.ingest
+
+backfill:      ## refetch the entire history from scratch
+	.venv/bin/python -m ingestion.ingest --full
+
+freshness:     ## warn if no new or revised data has arrived in 36h
+	.venv/bin/dbt source freshness --project-dir dbt_project --profiles-dir dbt_project
 
 transform: deps  ## build + test the dbt staging and marts layers
 	.venv/bin/dbt build --project-dir dbt_project --profiles-dir dbt_project

@@ -12,7 +12,7 @@ import pytest
 from dotenv import load_dotenv
 
 from ingestion.client import OuraClient
-from ingestion.ingest import doc_day, upsert
+from ingestion.ingest import DEFAULT_START, doc_day, resume_from, upsert
 
 load_dotenv()
 
@@ -86,3 +86,75 @@ def test_upsert_updates_payload_on_conflict(pg):
     assert len(rows) == 1
     payload = rows[0][0] if isinstance(rows[0][0], dict) else json.loads(rows[0][0])
     assert payload["score"] == 85
+
+
+# --- conditional upsert: unchanged payloads must not be rewritten -------
+# ingested_at is what dbt source freshness reads, so it has to mean "this
+# document changed", not "the job ran again".
+
+def ingested_at(conn, doc_id="t1"):
+    with conn.cursor() as cur:
+        cur.execute(
+            "SELECT ingested_at FROM raw.oura_documents "
+            "WHERE endpoint = '_test' AND doc_id = %s", (doc_id,))
+        return cur.fetchone()[0]
+
+
+def test_upsert_reports_rows_actually_written(pg):
+    docs = [{"id": "t1", "day": "2026-01-01", "score": 80},
+            {"id": "t2", "day": "2026-01-02", "score": 90}]
+    assert upsert(pg, "_test", docs) == 2
+    assert upsert(pg, "_test", docs) == 0  # nothing changed, nothing written
+
+
+def test_upsert_leaves_ingested_at_alone_when_nothing_changed(pg):
+    doc = [{"id": "t1", "day": "2026-01-01", "score": 80}]
+    upsert(pg, "_test", doc)
+    before = ingested_at(pg)
+    upsert(pg, "_test", doc)
+    assert ingested_at(pg) == before
+
+
+def test_upsert_bumps_ingested_at_when_the_payload_changes(pg):
+    upsert(pg, "_test", [{"id": "t1", "day": "2026-01-01", "score": 80}])
+    before = ingested_at(pg)
+    assert upsert(pg, "_test", [{"id": "t1", "day": "2026-01-01", "score": 85}]) == 1
+    assert ingested_at(pg) > before
+
+
+def test_upsert_counts_only_the_changed_document_in_a_mixed_batch(pg):
+    docs = [{"id": "t1", "day": "2026-01-01", "score": 80},
+            {"id": "t2", "day": "2026-01-02", "score": 90}]
+    upsert(pg, "_test", docs)
+    docs[1] = {"id": "t2", "day": "2026-01-02", "score": 91}
+    assert upsert(pg, "_test", docs) == 1
+
+
+# --- incremental watermark ----------------------------------------------
+
+def test_resume_from_falls_back_to_default_when_endpoint_is_empty(pg):
+    assert resume_from(pg, "_test_never_seen") == DEFAULT_START
+
+
+def test_resume_from_rewinds_by_the_overlap_window(pg):
+    upsert(pg, "_test", [{"id": "t1", "day": "2026-03-20", "score": 70}])
+    assert resume_from(pg, "_test", overlap_days=10) == "2026-03-10"
+
+
+def test_resume_from_uses_the_newest_day_not_the_first(pg):
+    upsert(pg, "_test", [{"id": "t1", "day": "2026-03-01", "score": 70},
+                         {"id": "t2", "day": "2026-03-20", "score": 75}])
+    assert resume_from(pg, "_test", overlap_days=5) == "2026-03-15"
+
+
+def test_resume_from_never_goes_earlier_than_the_default_start(pg):
+    upsert(pg, "_test", [{"id": "t1", "day": "2022-01-03", "score": 70}])
+    assert resume_from(pg, "_test", overlap_days=365) == DEFAULT_START
+
+
+def test_resume_from_is_per_endpoint(pg):
+    # Endpoints do not advance together, so one shared watermark would skip
+    # the tail of whichever endpoint lags behind.
+    upsert(pg, "_test", [{"id": "t1", "day": "2026-03-20", "score": 70}])
+    assert resume_from(pg, "_test", overlap_days=0) == "2026-03-20"
+    assert resume_from(pg, "_test_other", overlap_days=0) == DEFAULT_START

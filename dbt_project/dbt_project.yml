@@ -14,5 +14,18 @@ models:
     marts:
       # Tables, not views: these carry window functions over the full history,
       # and Metabase and the notebooks read them repeatedly.
+      #
+      # Deliberately NOT incremental, and the reason is not volume. Every mart
+      # contains at least one unbounded window function: percent_rank over all
+      # nights, ntile over all workouts, avg() over () for the all-time mean,
+      # and the row_number pair behind the gaps-and-islands spell grouping. An
+      # incremental run only sees its lookback slice, so those would be computed
+      # against the last N days and written into a column labelled "all-time".
+      # That fails silently, which is the worst way to fail. A lookback window
+      # rescues the trailing 7- and 28-day aggregates; it cannot rescue a
+      # global ranking. Making these incremental means first splitting the
+      # bounded features from the global ones. At 1,244 rows a full refresh
+      # costs 0.14s, so that trade has not been worth making. The ingestion is
+      # incremental, which is where the cost actually was.
       +schema: marts
       +materialized: table
