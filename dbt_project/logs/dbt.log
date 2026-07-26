@@ -2297,3 +2297,1149 @@ having count(*) > 1
 [0m01:11:35.248510 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109b85550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109d12af0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109d110d0>]}
 [0m01:11:35.248660 [debug] [MainThread]: Flushing usage events
 [0m01:11:35.711945 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m12:18:44.526192 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x110b723c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113602ad0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113602850>]}
+
+
+============================== 12:18:44.529521 | a7a6e87b-3ac6-4084-ab41-a7e561236050 ==============================
+[0m12:18:44.529521 [info ] [MainThread]: Running with dbt=1.12.0
+[0m12:18:44.530367 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'log_path': 'dbt_project/logs', 'cache_selected_only': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'introspect': 'True', 'send_anonymous_usage_stats': 'True', 'target_path': 'None', 'static_parser': 'True', 'log_cache_events': 'False', 'maximum_seed_size_mib': '1', 'quiet': 'False', 'profiles_dir': 'dbt_project', 'invocation_command': 'dbt build --project-dir dbt_project --profiles-dir dbt_project', 'printer_width': '80', 'partial_parse': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'debug': 'False', 'no_print': 'None', 'use_colors': 'True', 'hints_enabled': 'True', 'fail_fast': 'False', 'log_format': 'default', 'warn_error': 'None', 'version_check': 'True', 'empty': 'False'}
+[0m12:18:44.707356 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1134bb950>]}
+[0m12:18:44.740279 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1068bbac0>]}
+[0m12:18:44.741119 [info ] [MainThread]: Registered adapter: postgres=1.11.0
+[0m12:18:44.807020 [debug] [MainThread]: checksum: c1ffe9f110806a3ce4abaa2aeb37be2fe0adbff9020d1ac226d9247297b963bb, vars: {}, profile: oura_pipeline, target: dev, version: 1.12.0
+[0m12:18:44.911793 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 1 files added, 1 files changed.
+[0m12:18:44.912148 [debug] [MainThread]: Partial parsing: added file: oura_pipeline://models/staging/stg_daily_stress.sql
+[0m12:18:44.912377 [debug] [MainThread]: Partial parsing: updated file: oura_pipeline://models/staging/schema.yml
+[0m12:18:45.237451 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x116d13d50>]}
+[0m12:18:45.318588 [debug] [MainThread]: Wrote artifact WritableManifest to dbt_project/target/manifest.json
+[0m12:18:45.320852 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt_project/target/semantic_manifest.json
+[0m12:18:45.335598 [debug] [MainThread]: Wrote artifact OsiDocument to dbt_project/target/osi_document.json
+[0m12:18:45.356036 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x117c86d50>]}
+[0m12:18:45.356324 [info ] [MainThread]: Found 7 models, 16 data tests, 1 source, 478 macros
+[0m12:18:45.358051 [info ] [MainThread]: 
+[0m12:18:45.358275 [info ] [MainThread]: Concurrency: 2 threads (target='dev')
+[0m12:18:45.358447 [info ] [MainThread]: 
+[0m12:18:45.358747 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m12:18:45.360921 [debug] [ThreadPool]: Acquiring new postgres connection 'list_oura'
+[0m12:18:45.400720 [debug] [ThreadPool]: Using postgres connection "list_oura"
+[0m12:18:45.400954 [debug] [ThreadPool]: On list_oura: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "connection_name": "list_oura"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m12:18:45.401103 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:18:45.593871 [debug] [ThreadPool]: SQL status: SELECT 6 in 0.193 seconds
+[0m12:18:45.594858 [debug] [ThreadPool]: On list_oura: Close
+[0m12:18:45.595994 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_oura, now list_oura_staging)
+[0m12:18:45.599752 [debug] [ThreadPool]: Using postgres connection "list_oura_staging"
+[0m12:18:45.599989 [debug] [ThreadPool]: On list_oura_staging: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "connection_name": "list_oura_staging"} */
+select
+      'oura' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'staging'
+    union all
+    select
+      'oura' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'staging'
+    union all
+    select
+      'oura' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'staging'
+    union all
+    select distinct
+     'oura' as database,
+     proname as name,
+     ns.nspname as schema,
+     'function' as type
+    from pg_proc
+     join pg_namespace as ns on pronamespace = ns.oid
+    where ns.nspname ilike 'staging'
+  
+[0m12:18:45.600177 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:18:45.618980 [debug] [ThreadPool]: SQL status: SELECT 6 in 0.019 seconds
+[0m12:18:45.619886 [debug] [ThreadPool]: On list_oura_staging: ROLLBACK
+[0m12:18:45.620376 [debug] [ThreadPool]: On list_oura_staging: Close
+[0m12:18:45.623539 [debug] [MainThread]: Using postgres connection "master"
+[0m12:18:45.623821 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "connection_name": "master"} */
+select distinct
+        dependent_namespace.nspname as dependent_schema,
+        dependent_class.relname as dependent_name,
+        referenced_namespace.nspname as referenced_schema,
+        referenced_class.relname as referenced_name
+
+    -- Query for views: views are entries in pg_class with an entry in pg_rewrite, but we avoid
+    -- a seq scan on pg_rewrite by leveraging the fact there is an "internal" row in pg_depend for
+    -- the view...
+    from pg_class as dependent_class
+    join pg_namespace as dependent_namespace on dependent_namespace.oid = dependent_class.relnamespace
+    join pg_depend as dependent_depend on dependent_depend.refobjid = dependent_class.oid
+        and dependent_depend.classid = 'pg_rewrite'::regclass
+        and dependent_depend.refclassid = 'pg_class'::regclass
+        and dependent_depend.deptype = 'i'
+
+    -- ... and via pg_depend (that has a row per column, hence the need for "distinct" above, and
+    -- making sure to exclude the internal row to avoid a view appearing to depend on itself)...
+    join pg_depend as joining_depend on joining_depend.objid = dependent_depend.objid
+        and joining_depend.classid = 'pg_rewrite'::regclass
+        and joining_depend.refclassid = 'pg_class'::regclass
+        and joining_depend.refobjid != dependent_depend.refobjid
+
+    -- ... we can find the tables they query from in pg_class, but excluding system tables. Note we
+    -- don't need need to exclude _dependent_ system tables, because they only query from other
+    -- system tables, and so are automatically excluded by excluding _referenced_ system tables
+    join pg_class as referenced_class on referenced_class.oid = joining_depend.refobjid
+    join pg_namespace as referenced_namespace on referenced_namespace.oid = referenced_class.relnamespace
+        and referenced_namespace.nspname != 'information_schema'
+        and referenced_namespace.nspname not like 'pg\_%'
+
+    order by
+        dependent_schema, dependent_name, referenced_schema, referenced_name;
+[0m12:18:45.624091 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m12:18:45.637513 [debug] [MainThread]: SQL status: SELECT 9 in 0.013 seconds
+[0m12:18:45.638811 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x117d48590>]}
+[0m12:18:45.639092 [debug] [MainThread]: On master: ROLLBACK
+[0m12:18:45.639620 [debug] [MainThread]: On master: COMMIT
+[0m12:18:45.639848 [debug] [MainThread]: Using postgres connection "master"
+[0m12:18:45.640034 [debug] [MainThread]: On master: COMMIT
+[0m12:18:45.640749 [debug] [MainThread]: SQL status: COMMIT in 0.001 seconds
+[0m12:18:45.640931 [debug] [MainThread]: On master: Close
+[0m12:18:45.643188 [debug] [Thread-2 (]: Began running node test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1
+[0m12:18:45.643469 [debug] [Thread-1 (]: Began running node test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1
+[0m12:18:45.644042 [info ] [Thread-1 (]: 1 of 23 START test source_not_null_raw_oura_documents_doc_id ................... [RUN]
+[0m12:18:45.644366 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_oura_staging, now test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1)
+[0m12:18:45.644758 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1
+[0m12:18:45.643742 [info ] [Thread-2 (]: 2 of 23 START test source_not_null_raw_oura_documents_payload .................. [RUN]
+[0m12:18:45.657755 [debug] [Thread-2 (]: Acquiring new postgres connection 'test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1'
+[0m12:18:45.658303 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1
+[0m12:18:45.661973 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1"
+[0m12:18:45.658078 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1"
+[0m12:18:45.662701 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1
+[0m12:18:45.662906 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1
+[0m12:18:45.673197 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1"
+[0m12:18:45.672412 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1"
+[0m12:18:45.673710 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1"
+[0m12:18:45.674156 [debug] [Thread-1 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select doc_id
+from "oura"."raw"."oura_documents"
+where doc_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.674340 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.673972 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1"
+[0m12:18:45.674580 [debug] [Thread-2 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select payload
+from "oura"."raw"."oura_documents"
+where payload is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.674742 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m12:18:45.686983 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.012 seconds
+[0m12:18:45.690660 [debug] [Thread-2 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1: ROLLBACK
+[0m12:18:45.691295 [debug] [Thread-2 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1: Close
+[0m12:18:45.691725 [info ] [Thread-2 (]: 2 of 23 PASS source_not_null_raw_oura_documents_payload ........................ [[32mPASS[0m in 0.03s]
+[0m12:18:45.692719 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1
+[0m12:18:45.696106 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.022 seconds
+[0m12:18:45.696868 [debug] [Thread-1 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1: ROLLBACK
+[0m12:18:45.697328 [debug] [Thread-1 (]: On test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1: Close
+[0m12:18:45.697695 [info ] [Thread-1 (]: 1 of 23 PASS source_not_null_raw_oura_documents_doc_id ......................... [[32mPASS[0m in 0.05s]
+[0m12:18:45.697983 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1
+[0m12:18:45.698405 [debug] [Thread-1 (]: Began running node model.oura_pipeline.stg_daily_readiness
+[0m12:18:45.698679 [debug] [Thread-2 (]: Began running node model.oura_pipeline.stg_daily_activity
+[0m12:18:45.699254 [info ] [Thread-2 (]: 3 of 23 START sql view model staging.stg_daily_activity ........................ [RUN]
+[0m12:18:45.699476 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.source_not_null_raw_oura_documents_payload.1a6e8d31c1, now model.oura_pipeline.stg_daily_activity)
+[0m12:18:45.699640 [debug] [Thread-2 (]: Began compiling node model.oura_pipeline.stg_daily_activity
+[0m12:18:45.700762 [debug] [Thread-2 (]: Writing injected SQL for node "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.698954 [info ] [Thread-1 (]: 4 of 23 START sql view model staging.stg_daily_readiness ....................... [RUN]
+[0m12:18:45.701013 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.source_not_null_raw_oura_documents_doc_id.08cbf6e5a1, now model.oura_pipeline.stg_daily_readiness)
+[0m12:18:45.701220 [debug] [Thread-1 (]: Began compiling node model.oura_pipeline.stg_daily_readiness
+[0m12:18:45.702731 [debug] [Thread-1 (]: Writing injected SQL for node "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.702918 [debug] [Thread-2 (]: Began executing node model.oura_pipeline.stg_daily_activity
+[0m12:18:45.720905 [debug] [Thread-2 (]: Writing runtime sql for node "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.721183 [debug] [Thread-1 (]: Began executing node model.oura_pipeline.stg_daily_readiness
+[0m12:18:45.722446 [debug] [Thread-1 (]: Writing runtime sql for node "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.722700 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.722946 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_activity"} */
+
+  create view "oura"."staging"."stg_daily_activity__dbt_tmp"
+    
+    
+  as (
+    select
+    day::date                                  as day,
+    (payload->>'score')::int                   as activity_score,
+    (payload->>'steps')::int                   as steps,
+    (payload->>'total_calories')::int          as total_calories,
+    (payload->>'active_calories')::int         as active_calories,
+    (payload->>'sedentary_time')::int / 3600.0 as sedentary_hours,
+    (payload->>'non_wear_time')::int / 3600.0  as non_wear_hours
+from "oura"."raw"."oura_documents"
+where endpoint = 'daily_activity'
+  );
+[0m12:18:45.723153 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.723331 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.723587 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_readiness"} */
+
+  create view "oura"."staging"."stg_daily_readiness__dbt_tmp"
+    
+    
+  as (
+    select
+    day::date                                                  as day,
+    (payload->>'score')::int                                   as readiness_score,
+    (payload->>'temperature_deviation')::numeric               as temp_deviation,
+    (payload->'contributors'->>'resting_heart_rate')::int      as c_resting_hr,
+    (payload->'contributors'->>'hrv_balance')::int             as c_hrv_balance,
+    (payload->'contributors'->>'recovery_index')::int          as c_recovery_index,
+    (payload->'contributors'->>'sleep_balance')::int           as c_sleep_balance,
+    (payload->'contributors'->>'activity_balance')::int        as c_activity_balance,
+    (payload->'contributors'->>'body_temperature')::int        as c_body_temperature,
+    (payload->'contributors'->>'previous_day_activity')::int   as c_prev_day_activity,
+    (payload->'contributors'->>'previous_night')::int          as c_previous_night
+from "oura"."raw"."oura_documents"
+where endpoint = 'daily_readiness'
+  );
+[0m12:18:45.723775 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.739523 [debug] [Thread-2 (]: SQL status: CREATE VIEW in 0.016 seconds
+[0m12:18:45.744813 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.745297 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_activity"} */
+alter table "oura"."staging"."stg_daily_activity" rename to "stg_daily_activity__dbt_backup"
+[0m12:18:45.745092 [debug] [Thread-1 (]: SQL status: CREATE VIEW in 0.021 seconds
+[0m12:18:45.746493 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.746683 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_readiness"} */
+alter table "oura"."staging"."stg_daily_readiness" rename to "stg_daily_readiness__dbt_backup"
+[0m12:18:45.746879 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.747953 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.748328 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_activity"} */
+alter table "oura"."staging"."stg_daily_activity__dbt_tmp" rename to "stg_daily_activity"
+[0m12:18:45.748145 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.749267 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.749609 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_readiness"} */
+alter table "oura"."staging"."stg_daily_readiness__dbt_tmp" rename to "stg_daily_readiness"
+[0m12:18:45.749437 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.756146 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.006 seconds
+[0m12:18:45.760682 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: COMMIT
+[0m12:18:45.760866 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.761027 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: COMMIT
+[0m12:18:45.759967 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: COMMIT
+[0m12:18:45.761219 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.761386 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: COMMIT
+[0m12:18:45.763921 [debug] [Thread-1 (]: SQL status: COMMIT in 0.003 seconds
+[0m12:18:45.766698 [debug] [Thread-1 (]: Applying DROP to: "oura"."staging"."stg_daily_readiness__dbt_backup"
+[0m12:18:45.769327 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_readiness"
+[0m12:18:45.766883 [debug] [Thread-2 (]: SQL status: COMMIT in 0.005 seconds
+[0m12:18:45.770283 [debug] [Thread-2 (]: Applying DROP to: "oura"."staging"."stg_daily_activity__dbt_backup"
+[0m12:18:45.770572 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_activity"
+[0m12:18:45.769515 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_readiness"} */
+drop view if exists "oura"."staging"."stg_daily_readiness__dbt_backup" cascade
+[0m12:18:45.770744 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_activity"} */
+drop view if exists "oura"."staging"."stg_daily_activity__dbt_backup" cascade
+[0m12:18:45.775853 [debug] [Thread-2 (]: SQL status: DROP VIEW in 0.005 seconds
+[0m12:18:45.776544 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_activity: Close
+[0m12:18:45.776718 [debug] [Thread-1 (]: SQL status: DROP VIEW in 0.006 seconds
+[0m12:18:45.777528 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_readiness: Close
+[0m12:18:45.781208 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1201ec530>]}
+[0m12:18:45.781454 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1201e81d0>]}
+[0m12:18:45.781842 [info ] [Thread-1 (]: 4 of 23 OK created sql view model staging.stg_daily_readiness .................. [[32mCREATE VIEW[0m in 0.08s]
+[0m12:18:45.782568 [debug] [Thread-1 (]: Finished running node model.oura_pipeline.stg_daily_readiness
+[0m12:18:45.782846 [debug] [Thread-1 (]: Began running node model.oura_pipeline.stg_daily_sleep
+[0m12:18:45.782295 [info ] [Thread-2 (]: 3 of 23 OK created sql view model staging.stg_daily_activity ................... [[32mCREATE VIEW[0m in 0.08s]
+[0m12:18:45.783496 [debug] [Thread-2 (]: Finished running node model.oura_pipeline.stg_daily_activity
+[0m12:18:45.783679 [debug] [Thread-2 (]: Began running node model.oura_pipeline.stg_daily_stress
+[0m12:18:45.783149 [info ] [Thread-1 (]: 5 of 23 START sql view model staging.stg_daily_sleep ........................... [RUN]
+[0m12:18:45.784190 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_daily_readiness, now model.oura_pipeline.stg_daily_sleep)
+[0m12:18:45.784417 [debug] [Thread-1 (]: Began compiling node model.oura_pipeline.stg_daily_sleep
+[0m12:18:45.785590 [debug] [Thread-1 (]: Writing injected SQL for node "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.783941 [info ] [Thread-2 (]: 6 of 23 START sql view model staging.stg_daily_stress .......................... [RUN]
+[0m12:18:45.785821 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_daily_activity, now model.oura_pipeline.stg_daily_stress)
+[0m12:18:45.786010 [debug] [Thread-2 (]: Began compiling node model.oura_pipeline.stg_daily_stress
+[0m12:18:45.786923 [debug] [Thread-2 (]: Writing injected SQL for node "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.787104 [debug] [Thread-1 (]: Began executing node model.oura_pipeline.stg_daily_sleep
+[0m12:18:45.788325 [debug] [Thread-1 (]: Writing runtime sql for node "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.788546 [debug] [Thread-2 (]: Began executing node model.oura_pipeline.stg_daily_stress
+[0m12:18:45.792057 [debug] [Thread-2 (]: Writing runtime sql for node "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.792322 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.792510 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_sleep"} */
+
+  create view "oura"."staging"."stg_daily_sleep__dbt_tmp"
+    
+    
+  as (
+    select
+    day::date                                          as day,
+    (payload->>'score')::int                           as sleep_score,
+    (payload->'contributors'->>'deep_sleep')::int      as c_deep_sleep,
+    (payload->'contributors'->>'efficiency')::int      as c_efficiency,
+    (payload->'contributors'->>'latency')::int         as c_latency,
+    (payload->'contributors'->>'rem_sleep')::int       as c_rem_sleep,
+    (payload->'contributors'->>'restfulness')::int     as c_restfulness,
+    (payload->'contributors'->>'timing')::int          as c_timing,
+    (payload->'contributors'->>'total_sleep')::int     as c_total_sleep
+from "oura"."raw"."oura_documents"
+where endpoint = 'daily_sleep'
+  );
+[0m12:18:45.792687 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.792920 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.793090 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_stress"} */
+
+  create view "oura"."staging"."stg_daily_stress__dbt_tmp"
+    
+    
+  as (
+    select
+    day::date                            as day,
+    payload->>'day_summary'              as day_summary,
+    (payload->>'stress_high')::int / 3600.0    as stress_high_hours,
+    (payload->>'recovery_high')::int / 3600.0  as recovery_high_hours
+from "oura"."raw"."oura_documents"
+where endpoint = 'daily_stress'
+  );
+[0m12:18:45.793247 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.802403 [debug] [Thread-1 (]: SQL status: CREATE VIEW in 0.010 seconds
+[0m12:18:45.803691 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.802623 [debug] [Thread-2 (]: SQL status: CREATE VIEW in 0.009 seconds
+[0m12:18:45.804763 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.804928 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_stress"} */
+alter table "oura"."staging"."stg_daily_stress__dbt_tmp" rename to "stg_daily_stress"
+[0m12:18:45.803862 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_sleep"} */
+alter table "oura"."staging"."stg_daily_sleep" rename to "stg_daily_sleep__dbt_backup"
+[0m12:18:45.805419 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.000 seconds
+[0m12:18:45.806555 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.806740 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_sleep"} */
+alter table "oura"."staging"."stg_daily_sleep__dbt_tmp" rename to "stg_daily_sleep"
+[0m12:18:45.805589 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.807437 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: COMMIT
+[0m12:18:45.807760 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.807910 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: COMMIT
+[0m12:18:45.807606 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.808583 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: COMMIT
+[0m12:18:45.808905 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.809058 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: COMMIT
+[0m12:18:45.808754 [debug] [Thread-2 (]: SQL status: COMMIT in 0.001 seconds
+[0m12:18:45.809709 [debug] [Thread-2 (]: Applying DROP to: "oura"."staging"."stg_daily_stress__dbt_backup"
+[0m12:18:45.810114 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_daily_stress"
+[0m12:18:45.810277 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_stress"} */
+drop view if exists "oura"."staging"."stg_daily_stress__dbt_backup" cascade
+[0m12:18:45.809867 [debug] [Thread-1 (]: SQL status: COMMIT in 0.001 seconds
+[0m12:18:45.810947 [debug] [Thread-1 (]: Applying DROP to: "oura"."staging"."stg_daily_sleep__dbt_backup"
+[0m12:18:45.811348 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_daily_sleep"
+[0m12:18:45.811507 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_daily_sleep"} */
+drop view if exists "oura"."staging"."stg_daily_sleep__dbt_backup" cascade
+[0m12:18:45.811109 [debug] [Thread-2 (]: SQL status: DROP VIEW in 0.001 seconds
+[0m12:18:45.812078 [debug] [Thread-2 (]: On model.oura_pipeline.stg_daily_stress: Close
+[0m12:18:45.812336 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1201914f0>]}
+[0m12:18:45.812518 [debug] [Thread-1 (]: SQL status: DROP VIEW in 0.001 seconds
+[0m12:18:45.813538 [debug] [Thread-1 (]: On model.oura_pipeline.stg_daily_sleep: Close
+[0m12:18:45.812831 [info ] [Thread-2 (]: 6 of 23 OK created sql view model staging.stg_daily_stress ..................... [[32mCREATE VIEW[0m in 0.03s]
+[0m12:18:45.813899 [debug] [Thread-2 (]: Finished running node model.oura_pipeline.stg_daily_stress
+[0m12:18:45.814396 [debug] [Thread-2 (]: Began running node model.oura_pipeline.stg_sleep_periods
+[0m12:18:45.814677 [info ] [Thread-2 (]: 7 of 23 START sql view model staging.stg_sleep_periods ......................... [RUN]
+[0m12:18:45.814944 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_daily_stress, now model.oura_pipeline.stg_sleep_periods)
+[0m12:18:45.815117 [debug] [Thread-2 (]: Began compiling node model.oura_pipeline.stg_sleep_periods
+[0m12:18:45.816224 [debug] [Thread-2 (]: Writing injected SQL for node "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.814182 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1201ba2b0>]}
+[0m12:18:45.816613 [info ] [Thread-1 (]: 5 of 23 OK created sql view model staging.stg_daily_sleep ...................... [[32mCREATE VIEW[0m in 0.03s]
+[0m12:18:45.816862 [debug] [Thread-1 (]: Finished running node model.oura_pipeline.stg_daily_sleep
+[0m12:18:45.817045 [debug] [Thread-1 (]: Began running node model.oura_pipeline.stg_workouts
+[0m12:18:45.817419 [debug] [Thread-2 (]: Began executing node model.oura_pipeline.stg_sleep_periods
+[0m12:18:45.819028 [debug] [Thread-2 (]: Writing runtime sql for node "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.817263 [info ] [Thread-1 (]: 8 of 23 START sql view model staging.stg_workouts .............................. [RUN]
+[0m12:18:45.819255 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_daily_sleep, now model.oura_pipeline.stg_workouts)
+[0m12:18:45.819440 [debug] [Thread-1 (]: Began compiling node model.oura_pipeline.stg_workouts
+[0m12:18:45.820331 [debug] [Thread-1 (]: Writing injected SQL for node "model.oura_pipeline.stg_workouts"
+[0m12:18:45.820534 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.820774 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_sleep_periods"} */
+
+  create view "oura"."staging"."stg_sleep_periods__dbt_tmp"
+    
+    
+  as (
+    select
+    doc_id,
+    day::date                                          as day,
+    payload->>'type'                                   as type,
+    (payload->>'bedtime_start')::timestamptz           as bedtime_start,
+    (payload->>'bedtime_end')::timestamptz             as bedtime_end,
+    (payload->>'total_sleep_duration')::int / 3600.0   as sleep_hours,
+    (payload->>'time_in_bed')::int / 3600.0            as time_in_bed_hours,
+    (payload->>'efficiency')::int                      as efficiency,
+    (payload->>'latency')::int / 60.0                  as latency_min,
+    (payload->>'deep_sleep_duration')::int / 3600.0    as deep_hours,
+    (payload->>'rem_sleep_duration')::int / 3600.0     as rem_hours,
+    (payload->>'light_sleep_duration')::int / 3600.0   as light_hours,
+    (payload->>'awake_time')::int / 3600.0             as awake_hours,
+    (payload->>'average_heart_rate')::numeric          as avg_hr,
+    (payload->>'lowest_heart_rate')::int               as lowest_hr,
+    (payload->>'average_hrv')::int                     as avg_hrv,
+    (payload->>'average_breath')::numeric              as avg_breath
+from "oura"."raw"."oura_documents"
+where endpoint = 'sleep'
+  );
+[0m12:18:45.820975 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.821176 [debug] [Thread-1 (]: Began executing node model.oura_pipeline.stg_workouts
+[0m12:18:45.822283 [debug] [Thread-1 (]: Writing runtime sql for node "model.oura_pipeline.stg_workouts"
+[0m12:18:45.822593 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_workouts"
+[0m12:18:45.822776 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_workouts"} */
+
+  create view "oura"."staging"."stg_workouts__dbt_tmp"
+    
+    
+  as (
+    select
+    doc_id,
+    day::date                                  as day,
+    payload->>'activity'                       as activity,
+    payload->>'intensity'                      as intensity,
+    (payload->>'calories')::numeric            as calories,
+    (payload->>'start_datetime')::timestamptz  as start_at,
+    (payload->>'end_datetime')::timestamptz    as end_at
+from "oura"."raw"."oura_documents"
+where endpoint = 'workout'
+  );
+[0m12:18:45.822939 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.828411 [debug] [Thread-2 (]: SQL status: CREATE VIEW in 0.007 seconds
+[0m12:18:45.829487 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.829861 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_sleep_periods"} */
+alter table "oura"."staging"."stg_sleep_periods" rename to "stg_sleep_periods__dbt_backup"
+[0m12:18:45.829673 [debug] [Thread-1 (]: SQL status: CREATE VIEW in 0.007 seconds
+[0m12:18:45.830834 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_workouts"
+[0m12:18:45.831166 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_workouts"} */
+alter table "oura"."staging"."stg_workouts" rename to "stg_workouts__dbt_backup"
+[0m12:18:45.831007 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.832360 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.832681 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_sleep_periods"} */
+alter table "oura"."staging"."stg_sleep_periods__dbt_tmp" rename to "stg_sleep_periods"
+[0m12:18:45.832524 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.833617 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_workouts"
+[0m12:18:45.833953 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_workouts"} */
+alter table "oura"."staging"."stg_workouts__dbt_tmp" rename to "stg_workouts"
+[0m12:18:45.833789 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.834639 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: COMMIT
+[0m12:18:45.834960 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.835109 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: COMMIT
+[0m12:18:45.834804 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.001 seconds
+[0m12:18:45.835717 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: COMMIT
+[0m12:18:45.835877 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_workouts"
+[0m12:18:45.836022 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: COMMIT
+[0m12:18:45.836297 [debug] [Thread-2 (]: SQL status: COMMIT in 0.001 seconds
+[0m12:18:45.837115 [debug] [Thread-2 (]: Applying DROP to: "oura"."staging"."stg_sleep_periods__dbt_backup"
+[0m12:18:45.837379 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.stg_sleep_periods"
+[0m12:18:45.837538 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_sleep_periods"} */
+drop view if exists "oura"."staging"."stg_sleep_periods__dbt_backup" cascade
+[0m12:18:45.836474 [debug] [Thread-1 (]: SQL status: COMMIT in 0.000 seconds
+[0m12:18:45.838184 [debug] [Thread-1 (]: Applying DROP to: "oura"."staging"."stg_workouts__dbt_backup"
+[0m12:18:45.838431 [debug] [Thread-1 (]: Using postgres connection "model.oura_pipeline.stg_workouts"
+[0m12:18:45.838735 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.stg_workouts"} */
+drop view if exists "oura"."staging"."stg_workouts__dbt_backup" cascade
+[0m12:18:45.838585 [debug] [Thread-2 (]: SQL status: DROP VIEW in 0.001 seconds
+[0m12:18:45.839297 [debug] [Thread-2 (]: On model.oura_pipeline.stg_sleep_periods: Close
+[0m12:18:45.839556 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1200b5350>]}
+[0m12:18:45.839721 [debug] [Thread-1 (]: SQL status: DROP VIEW in 0.001 seconds
+[0m12:18:45.840559 [debug] [Thread-1 (]: On model.oura_pipeline.stg_workouts: Close
+[0m12:18:45.840024 [info ] [Thread-2 (]: 7 of 23 OK created sql view model staging.stg_sleep_periods .................... [[32mCREATE VIEW[0m in 0.02s]
+[0m12:18:45.840843 [debug] [Thread-2 (]: Finished running node model.oura_pipeline.stg_sleep_periods
+[0m12:18:45.841257 [debug] [Thread-2 (]: Began running node test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1
+[0m12:18:45.841530 [info ] [Thread-2 (]: 9 of 23 START test not_null_stg_daily_readiness_day ............................ [RUN]
+[0m12:18:45.841734 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_sleep_periods, now test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1)
+[0m12:18:45.841899 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1
+[0m12:18:45.845445 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1"
+[0m12:18:45.841065 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x117d80280>]}
+[0m12:18:45.845770 [info ] [Thread-1 (]: 8 of 23 OK created sql view model staging.stg_workouts ......................... [[32mCREATE VIEW[0m in 0.02s]
+[0m12:18:45.846023 [debug] [Thread-1 (]: Finished running node model.oura_pipeline.stg_workouts
+[0m12:18:45.846189 [debug] [Thread-1 (]: Began running node test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5
+[0m12:18:45.846345 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1
+[0m12:18:45.847200 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1"
+[0m12:18:45.846525 [info ] [Thread-1 (]: 10 of 23 START test unique_stg_daily_readiness_day ............................. [RUN]
+[0m12:18:45.847414 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.stg_workouts, now test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5)
+[0m12:18:45.847580 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5
+[0m12:18:45.852055 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5"
+[0m12:18:45.852270 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1"
+[0m12:18:45.852502 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select day
+from "oura"."staging"."stg_daily_readiness"
+where day is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.852704 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.852931 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5
+[0m12:18:45.853626 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5"
+[0m12:18:45.853928 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5"
+[0m12:18:45.854095 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    day as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."stg_daily_readiness"
+where day is not null
+group by day
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.854254 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.859926 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.860629 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1: ROLLBACK
+[0m12:18:45.860977 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1: Close
+[0m12:18:45.861176 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.862135 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5: ROLLBACK
+[0m12:18:45.861474 [info ] [Thread-2 (]: 9 of 23 PASS not_null_stg_daily_readiness_day .................................. [[32mPASS[0m in 0.02s]
+[0m12:18:45.862405 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1
+[0m12:18:45.862730 [debug] [Thread-2 (]: Began running node test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751
+[0m12:18:45.862559 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5: Close
+[0m12:18:45.862917 [info ] [Thread-2 (]: 11 of 23 START test not_null_stg_daily_activity_day ............................ [RUN]
+[0m12:18:45.863407 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_daily_readiness_day.84df97c8c1, now test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751)
+[0m12:18:45.863588 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751
+[0m12:18:45.867189 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751"
+[0m12:18:45.863203 [info ] [Thread-1 (]: 10 of 23 PASS unique_stg_daily_readiness_day ................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.867497 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5
+[0m12:18:45.867671 [debug] [Thread-1 (]: Began running node test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572
+[0m12:18:45.867823 [info ] [Thread-1 (]: 12 of 23 START test unique_stg_daily_activity_day .............................. [RUN]
+[0m12:18:45.868057 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.unique_stg_daily_readiness_day.ea27c561e5, now test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572)
+[0m12:18:45.868243 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572
+[0m12:18:45.871432 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572"
+[0m12:18:45.868401 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751
+[0m12:18:45.872168 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751"
+[0m12:18:45.872401 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572
+[0m12:18:45.873075 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572"
+[0m12:18:45.873303 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751"
+[0m12:18:45.873472 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select day
+from "oura"."staging"."stg_daily_activity"
+where day is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.873651 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.873879 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572"
+[0m12:18:45.874065 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    day as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."stg_daily_activity"
+where day is not null
+group by day
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.874258 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.880863 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.881560 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751: ROLLBACK
+[0m12:18:45.881748 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.882298 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572: ROLLBACK
+[0m12:18:45.882468 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751: Close
+[0m12:18:45.882930 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572: Close
+[0m12:18:45.882790 [info ] [Thread-2 (]: 11 of 23 PASS not_null_stg_daily_activity_day .................................. [[32mPASS[0m in 0.02s]
+[0m12:18:45.883214 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751
+[0m12:18:45.883697 [debug] [Thread-2 (]: Began running node test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc
+[0m12:18:45.883915 [info ] [Thread-2 (]: 13 of 23 START test not_null_stg_daily_stress_day .............................. [RUN]
+[0m12:18:45.884152 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_daily_activity_day.fd66243751, now test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc)
+[0m12:18:45.884352 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc
+[0m12:18:45.888376 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc"
+[0m12:18:45.883455 [info ] [Thread-1 (]: 12 of 23 PASS unique_stg_daily_activity_day .................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.888668 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572
+[0m12:18:45.888844 [debug] [Thread-1 (]: Began running node test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7
+[0m12:18:45.888996 [info ] [Thread-1 (]: 14 of 23 START test unique_stg_daily_stress_day ................................ [RUN]
+[0m12:18:45.889252 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.unique_stg_daily_activity_day.44c5a5e572, now test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7)
+[0m12:18:45.889606 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7
+[0m12:18:45.892624 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7"
+[0m12:18:45.889435 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc
+[0m12:18:45.893347 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc"
+[0m12:18:45.893567 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7
+[0m12:18:45.894236 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7"
+[0m12:18:45.894449 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc"
+[0m12:18:45.894627 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select day
+from "oura"."staging"."stg_daily_stress"
+where day is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.894798 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.895019 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7"
+[0m12:18:45.895187 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    day as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."stg_daily_stress"
+where day is not null
+group by day
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.895341 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.902241 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.902943 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc: ROLLBACK
+[0m12:18:45.903134 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.008 seconds
+[0m12:18:45.903773 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7: ROLLBACK
+[0m12:18:45.903950 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc: Close
+[0m12:18:45.904391 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7: Close
+[0m12:18:45.904251 [info ] [Thread-2 (]: 13 of 23 PASS not_null_stg_daily_stress_day .................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.904935 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc
+[0m12:18:45.905114 [debug] [Thread-2 (]: Began running node test.oura_pipeline.assert_scores_in_range
+[0m12:18:45.905361 [info ] [Thread-2 (]: 15 of 23 START test assert_scores_in_range ..................................... [RUN]
+[0m12:18:45.905608 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_daily_stress_day.d6597e58bc, now test.oura_pipeline.assert_scores_in_range)
+[0m12:18:45.905794 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.assert_scores_in_range
+[0m12:18:45.904692 [info ] [Thread-1 (]: 14 of 23 PASS unique_stg_daily_stress_day ...................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.906993 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7
+[0m12:18:45.907168 [debug] [Thread-1 (]: Began running node test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c
+[0m12:18:45.906742 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.assert_scores_in_range"
+[0m12:18:45.907361 [info ] [Thread-1 (]: 16 of 23 START test not_null_stg_daily_sleep_day ............................... [RUN]
+[0m12:18:45.907608 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.unique_stg_daily_stress_day.480ba723c7, now test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c)
+[0m12:18:45.907761 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c
+[0m12:18:45.911192 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c"
+[0m12:18:45.911419 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.assert_scores_in_range
+[0m12:18:45.912133 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.assert_scores_in_range"
+[0m12:18:45.912336 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c
+[0m12:18:45.913004 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c"
+[0m12:18:45.913221 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.assert_scores_in_range"
+[0m12:18:45.913410 [debug] [Thread-2 (]: On test.oura_pipeline.assert_scores_in_range: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.assert_scores_in_range"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  -- All Oura scores must be 0-100; rows returned = test failure
+select day, sleep_score
+from "oura"."staging"."stg_daily_sleep"
+where sleep_score < 0 or sleep_score > 100
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.913576 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.913743 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c"
+[0m12:18:45.913952 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select day
+from "oura"."staging"."stg_daily_sleep"
+where day is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.914104 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.920391 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.006 seconds
+[0m12:18:45.921098 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c: ROLLBACK
+[0m12:18:45.921302 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.008 seconds
+[0m12:18:45.922072 [debug] [Thread-2 (]: On test.oura_pipeline.assert_scores_in_range: ROLLBACK
+[0m12:18:45.921479 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c: Close
+[0m12:18:45.922541 [debug] [Thread-2 (]: On test.oura_pipeline.assert_scores_in_range: Close
+[0m12:18:45.922410 [info ] [Thread-1 (]: 16 of 23 PASS not_null_stg_daily_sleep_day ..................................... [[32mPASS[0m in 0.01s]
+[0m12:18:45.923135 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c
+[0m12:18:45.923307 [debug] [Thread-1 (]: Began running node test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01
+[0m12:18:45.922840 [info ] [Thread-2 (]: 15 of 23 PASS assert_scores_in_range ........................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.923713 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.assert_scores_in_range
+[0m12:18:45.923868 [debug] [Thread-2 (]: Began running node test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608
+[0m12:18:45.923467 [info ] [Thread-1 (]: 17 of 23 START test not_null_stg_daily_sleep_sleep_score ....................... [RUN]
+[0m12:18:45.924261 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_daily_sleep_day.70c9a4290c, now test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01)
+[0m12:18:45.924416 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01
+[0m12:18:45.927659 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01"
+[0m12:18:45.924042 [info ] [Thread-2 (]: 18 of 23 START test unique_stg_daily_sleep_day ................................. [RUN]
+[0m12:18:45.927887 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.assert_scores_in_range, now test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608)
+[0m12:18:45.928070 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608
+[0m12:18:45.931394 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608"
+[0m12:18:45.931579 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01
+[0m12:18:45.932279 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01"
+[0m12:18:45.932526 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608
+[0m12:18:45.933188 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608"
+[0m12:18:45.933426 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01"
+[0m12:18:45.933619 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select sleep_score
+from "oura"."staging"."stg_daily_sleep"
+where sleep_score is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.933788 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.933954 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608"
+[0m12:18:45.934167 [debug] [Thread-2 (]: On test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    day as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."stg_daily_sleep"
+where day is not null
+group by day
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.934325 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.942021 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.008 seconds
+[0m12:18:45.942934 [debug] [Thread-2 (]: On test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608: ROLLBACK
+[0m12:18:45.942222 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.008 seconds
+[0m12:18:45.943603 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01: ROLLBACK
+[0m12:18:45.943787 [debug] [Thread-2 (]: On test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608: Close
+[0m12:18:45.944270 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01: Close
+[0m12:18:45.944118 [info ] [Thread-2 (]: 18 of 23 PASS unique_stg_daily_sleep_day ....................................... [[32mPASS[0m in 0.02s]
+[0m12:18:45.944929 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608
+[0m12:18:45.945162 [debug] [Thread-2 (]: Began running node test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96
+[0m12:18:45.945327 [info ] [Thread-2 (]: 19 of 23 START test not_null_stg_sleep_periods_doc_id .......................... [RUN]
+[0m12:18:45.945635 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.unique_stg_daily_sleep_day.92f84ff608, now test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96)
+[0m12:18:45.945843 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96
+[0m12:18:45.949191 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96"
+[0m12:18:45.944586 [info ] [Thread-1 (]: 17 of 23 PASS not_null_stg_daily_sleep_sleep_score ............................. [[32mPASS[0m in 0.02s]
+[0m12:18:45.949495 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01
+[0m12:18:45.949670 [debug] [Thread-1 (]: Began running node test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c
+[0m12:18:45.949879 [info ] [Thread-1 (]: 20 of 23 START test unique_stg_sleep_periods_doc_id ............................ [RUN]
+[0m12:18:45.950096 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_daily_sleep_sleep_score.1080d02b01, now test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c)
+[0m12:18:45.950438 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c
+[0m12:18:45.954147 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c"
+[0m12:18:45.950272 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96
+[0m12:18:45.954924 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96"
+[0m12:18:45.955179 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c
+[0m12:18:45.955875 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c"
+[0m12:18:45.956098 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96"
+[0m12:18:45.956285 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select doc_id
+from "oura"."staging"."stg_sleep_periods"
+where doc_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.956448 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.956613 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c"
+[0m12:18:45.956839 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    doc_id as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."stg_sleep_periods"
+where doc_id is not null
+group by doc_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:45.957000 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:45.963667 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.007 seconds
+[0m12:18:45.964374 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96: ROLLBACK
+[0m12:18:45.964769 [debug] [Thread-2 (]: On test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96: Close
+[0m12:18:45.965050 [info ] [Thread-2 (]: 19 of 23 PASS not_null_stg_sleep_periods_doc_id ................................ [[32mPASS[0m in 0.02s]
+[0m12:18:45.965307 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96
+[0m12:18:45.972668 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.016 seconds
+[0m12:18:45.973363 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c: ROLLBACK
+[0m12:18:45.973733 [debug] [Thread-1 (]: On test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c: Close
+[0m12:18:45.974070 [info ] [Thread-1 (]: 20 of 23 PASS unique_stg_sleep_periods_doc_id .................................. [[32mPASS[0m in 0.02s]
+[0m12:18:45.974331 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c
+[0m12:18:45.974726 [debug] [Thread-2 (]: Began running node model.oura_pipeline.daily
+[0m12:18:45.975020 [info ] [Thread-2 (]: 21 of 23 START sql view model staging.daily .................................... [RUN]
+[0m12:18:45.975231 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.not_null_stg_sleep_periods_doc_id.84ec2c0f96, now model.oura_pipeline.daily)
+[0m12:18:45.975390 [debug] [Thread-2 (]: Began compiling node model.oura_pipeline.daily
+[0m12:18:45.976799 [debug] [Thread-2 (]: Writing injected SQL for node "model.oura_pipeline.daily"
+[0m12:18:45.977149 [debug] [Thread-2 (]: Began executing node model.oura_pipeline.daily
+[0m12:18:45.978340 [debug] [Thread-2 (]: Writing runtime sql for node "model.oura_pipeline.daily"
+[0m12:18:45.978634 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.daily"
+[0m12:18:45.978800 [debug] [Thread-2 (]: On model.oura_pipeline.daily: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.daily"} */
+
+  create view "oura"."staging"."daily__dbt_tmp"
+    
+    
+  as (
+    -- One row per day: the analysis-ready wide table
+select
+    ds.day,
+    ds.sleep_score,
+    dr.readiness_score,
+    da.activity_score,
+    sp.sleep_hours,
+    sp.efficiency,
+    sp.avg_hrv,
+    sp.lowest_hr,
+    sp.avg_hr,
+    sp.bedtime_start,
+    sp.deep_hours,
+    sp.rem_hours,
+    dr.temp_deviation,
+    da.steps
+from "oura"."staging"."stg_daily_sleep" ds
+left join "oura"."staging"."stg_daily_readiness" dr using (day)
+left join "oura"."staging"."stg_daily_activity" da using (day)
+left join lateral (
+    select * from "oura"."staging"."stg_sleep_periods" p
+    where p.day = ds.day and p.type = 'long_sleep'
+    order by p.sleep_hours desc limit 1
+) sp on true
+  );
+[0m12:18:45.978959 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:45.986743 [debug] [Thread-2 (]: SQL status: CREATE VIEW in 0.008 seconds
+[0m12:18:45.987726 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.daily"
+[0m12:18:45.987885 [debug] [Thread-2 (]: On model.oura_pipeline.daily: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.daily"} */
+alter table "oura"."staging"."daily__dbt_tmp" rename to "daily"
+[0m12:18:45.988411 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.000 seconds
+[0m12:18:45.988996 [debug] [Thread-2 (]: On model.oura_pipeline.daily: COMMIT
+[0m12:18:45.989142 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.daily"
+[0m12:18:45.989276 [debug] [Thread-2 (]: On model.oura_pipeline.daily: COMMIT
+[0m12:18:45.990045 [debug] [Thread-2 (]: SQL status: COMMIT in 0.001 seconds
+[0m12:18:45.991118 [debug] [Thread-2 (]: Applying DROP to: "oura"."staging"."daily__dbt_backup"
+[0m12:18:45.991380 [debug] [Thread-2 (]: Using postgres connection "model.oura_pipeline.daily"
+[0m12:18:45.991540 [debug] [Thread-2 (]: On model.oura_pipeline.daily: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "model.oura_pipeline.daily"} */
+drop view if exists "oura"."staging"."daily__dbt_backup" cascade
+[0m12:18:45.992024 [debug] [Thread-2 (]: SQL status: DROP VIEW in 0.000 seconds
+[0m12:18:45.992567 [debug] [Thread-2 (]: On model.oura_pipeline.daily: Close
+[0m12:18:45.992840 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a7a6e87b-3ac6-4084-ab41-a7e561236050', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x117b63470>]}
+[0m12:18:45.993128 [info ] [Thread-2 (]: 21 of 23 OK created sql view model staging.daily ............................... [[32mCREATE VIEW[0m in 0.02s]
+[0m12:18:45.993380 [debug] [Thread-2 (]: Finished running node model.oura_pipeline.daily
+[0m12:18:45.993681 [debug] [Thread-2 (]: Began running node test.oura_pipeline.unique_daily_day.a5b5177e69
+[0m12:18:45.994064 [info ] [Thread-2 (]: 23 of 23 START test unique_daily_day ........................................... [RUN]
+[0m12:18:45.994303 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.oura_pipeline.daily, now test.oura_pipeline.unique_daily_day.a5b5177e69)
+[0m12:18:45.994463 [debug] [Thread-2 (]: Began compiling node test.oura_pipeline.unique_daily_day.a5b5177e69
+[0m12:18:45.997502 [debug] [Thread-2 (]: Writing injected SQL for node "test.oura_pipeline.unique_daily_day.a5b5177e69"
+[0m12:18:45.993872 [debug] [Thread-1 (]: Began running node test.oura_pipeline.not_null_daily_day.d1ea8e67eb
+[0m12:18:45.997710 [info ] [Thread-1 (]: 22 of 23 START test not_null_daily_day ......................................... [RUN]
+[0m12:18:45.997928 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.oura_pipeline.unique_stg_sleep_periods_doc_id.a7219dda1c, now test.oura_pipeline.not_null_daily_day.d1ea8e67eb)
+[0m12:18:45.998089 [debug] [Thread-1 (]: Began compiling node test.oura_pipeline.not_null_daily_day.d1ea8e67eb
+[0m12:18:46.001176 [debug] [Thread-1 (]: Writing injected SQL for node "test.oura_pipeline.not_null_daily_day.d1ea8e67eb"
+[0m12:18:45.998240 [debug] [Thread-2 (]: Began executing node test.oura_pipeline.unique_daily_day.a5b5177e69
+[0m12:18:46.001875 [debug] [Thread-2 (]: Writing runtime sql for node "test.oura_pipeline.unique_daily_day.a5b5177e69"
+[0m12:18:46.002144 [debug] [Thread-1 (]: Began executing node test.oura_pipeline.not_null_daily_day.d1ea8e67eb
+[0m12:18:46.002962 [debug] [Thread-1 (]: Writing runtime sql for node "test.oura_pipeline.not_null_daily_day.d1ea8e67eb"
+[0m12:18:46.002318 [debug] [Thread-2 (]: Using postgres connection "test.oura_pipeline.unique_daily_day.a5b5177e69"
+[0m12:18:46.003152 [debug] [Thread-2 (]: On test.oura_pipeline.unique_daily_day.a5b5177e69: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.unique_daily_day.a5b5177e69"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    day as unique_field,
+    count(*) as n_records
+
+from "oura"."staging"."daily"
+where day is not null
+group by day
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:46.003315 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:18:46.003525 [debug] [Thread-1 (]: Using postgres connection "test.oura_pipeline.not_null_daily_day.d1ea8e67eb"
+[0m12:18:46.003684 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_daily_day.d1ea8e67eb: /* {"app": "dbt", "dbt_version": "1.12.0", "profile_name": "oura_pipeline", "target_name": "dev", "node_id": "test.oura_pipeline.not_null_daily_day.d1ea8e67eb"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select day
+from "oura"."staging"."daily"
+where day is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m12:18:46.003830 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:18:46.011871 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.008 seconds
+[0m12:18:46.012606 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_daily_day.d1ea8e67eb: ROLLBACK
+[0m12:18:46.012971 [debug] [Thread-1 (]: On test.oura_pipeline.not_null_daily_day.d1ea8e67eb: Close
+[0m12:18:46.013309 [info ] [Thread-1 (]: 22 of 23 PASS not_null_daily_day ............................................... [[32mPASS[0m in 0.02s]
+[0m12:18:46.013633 [debug] [Thread-1 (]: Finished running node test.oura_pipeline.not_null_daily_day.d1ea8e67eb
+[0m12:18:46.031210 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.028 seconds
+[0m12:18:46.032052 [debug] [Thread-2 (]: On test.oura_pipeline.unique_daily_day.a5b5177e69: ROLLBACK
+[0m12:18:46.032521 [debug] [Thread-2 (]: On test.oura_pipeline.unique_daily_day.a5b5177e69: Close
+[0m12:18:46.032869 [info ] [Thread-2 (]: 23 of 23 PASS unique_daily_day ................................................. [[32mPASS[0m in 0.04s]
+[0m12:18:46.033134 [debug] [Thread-2 (]: Finished running node test.oura_pipeline.unique_daily_day.a5b5177e69
+[0m12:18:46.033991 [debug] [MainThread]: On master: COMMIT
+[0m12:18:46.034150 [debug] [MainThread]: Using postgres connection "master"
+[0m12:18:46.034281 [debug] [MainThread]: On master: COMMIT
+[0m12:18:46.034406 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m12:18:46.043800 [debug] [MainThread]: SQL status: COMMIT in 0.009 seconds
+[0m12:18:46.044022 [debug] [MainThread]: On master: Close
+[0m12:18:46.044282 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m12:18:46.044420 [debug] [MainThread]: Connection 'test.oura_pipeline.not_null_daily_day.d1ea8e67eb' was properly closed.
+[0m12:18:46.044531 [debug] [MainThread]: Connection 'test.oura_pipeline.unique_daily_day.a5b5177e69' was properly closed.
+[0m12:18:46.044703 [info ] [MainThread]: 
+[0m12:18:46.044852 [info ] [MainThread]: Finished running 16 data tests, 7 view models in 0 hours 0 minutes and 0.69 seconds (0.69s).
+[0m12:18:46.046753 [debug] [MainThread]: Command end result
+[0m12:18:46.067253 [debug] [MainThread]: Wrote artifact WritableManifest to dbt_project/target/manifest.json
+[0m12:18:46.068906 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt_project/target/semantic_manifest.json
+[0m12:18:46.070271 [debug] [MainThread]: Wrote artifact OsiDocument to dbt_project/target/osi_document.json
+[0m12:18:46.074400 [debug] [MainThread]: Wrote artifact RunExecutionResult to dbt_project/target/run_results.json
+[0m12:18:46.074571 [info ] [MainThread]: 
+[0m12:18:46.074745 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m12:18:46.074883 [info ] [MainThread]: 
+[0m12:18:46.075025 [info ] [MainThread]: Done. PASS=23 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=23
+[0m12:18:46.080295 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 1.6430075, "process_in_blocks": "0", "process_kernel_time": 0.255552, "process_mem_max_rss": "158892032", "process_out_blocks": "0", "process_user_time": 1.733096}
+[0m12:18:46.080531 [debug] [MainThread]: Command `dbt build` succeeded at 12:18:46.080490 after 1.64 seconds
+[0m12:18:46.080715 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111b32210>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12007b3b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x120079c70>]}
+[0m12:18:46.080871 [debug] [MainThread]: Flushing usage events
+[0m12:18:46.679913 [debug] [MainThread]: An error was encountered while trying to flush usage events

@@ -24,3 +24,7 @@ models:
     columns:
       - name: day
         data_tests: [not_null, unique]
+  - name: stg_daily_stress
+    columns:
+      - name: day
+        data_tests: [not_null, unique]

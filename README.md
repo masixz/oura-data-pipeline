@@ -41,6 +41,14 @@ Monday night) across four years of data. Oura assigns each sleep to the
 wake-up day, so this is the classic Sunday-night effect, visible in n=173
 Sunday nights rather than anecdote.
 
+**Why is my REM low? Not for the reasons I assumed.** Nine hypotheses tested
+in assumption -> check -> visualisation format
+([notebooks/03_rem_investigation.ipynb](notebooks/03_rem_investigation.ipynb)):
+stress, workouts, HRV, illness, and late bedtimes all came back clean. The
+only strong lever is duration (r = 0.80, ~15 min REM per extra hour of
+sleep), with the morning end carrying a disproportionate REM share. My REM
+is not damaged - it is starved of an 8th hour of sleep.
+
 **Can tonight's sleep be predicted before bed?** Partly: a random forest on
 pre-bed features (bedtime, day of week, recent history, day's activity) beats
 the naive baselines by ~13% (MAE 7.9 vs 9.1) on a time-based test split.
