@@ -28,3 +28,44 @@ models:
     columns:
       - name: day
         data_tests: [not_null, unique]
+
+  - name: stg_sleep_hr_hrv
+    description: >
+      Heart rate and HRV every 5 minutes through each night, unnested from the
+      raw JSON arrays. Both series share one start timestamp and interval, so
+      sample i of each aligns. Nulls mark lost skin contact and are kept.
+    columns:
+      - name: doc_id
+        data_tests: [not_null]
+      - name: sample_index
+        data_tests: [not_null]
+      - name: sample_time_local
+        data_tests: [not_null]
+      - name: minutes_into_sleep
+        data_tests: [not_null]
+
+  - name: stg_sleep_phases
+    description: >
+      Sleep stage and movement every 30 seconds, decoded from Oura's digit
+      strings. Phase codes 1 deep, 2 light, 3 REM, 4 awake.
+    columns:
+      - name: doc_id
+        data_tests: [not_null]
+      - name: epoch_index
+        data_tests: [not_null]
+      - name: sleep_phase
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['deep', 'light', 'rem', 'awake']
+      - name: phase_code
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 4
+      - name: movement_code
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 4

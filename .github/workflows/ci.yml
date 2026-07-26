@@ -77,7 +77,17 @@ jobs:
           echo "marts.mart_sleep_daily   $(count marts.mart_sleep_daily)"
           echo "marts.mart_sleep_weekly  $(count marts.mart_sleep_weekly)"
           echo "marts.mart_workout_recovery $(count marts.mart_workout_recovery)"
+          echo "staging.stg_sleep_phases  $(count staging.stg_sleep_phases)"
+          echo "staging.stg_sleep_hr_hrv  $(count staging.stg_sleep_hr_hrv)"
+          echo "marts.mart_sleep_architecture $(count marts.mart_sleep_architecture)"
           test "$(count staging.daily)" -eq 3
           test "$(count marts.mart_sleep_daily)" -eq 3
           test "$(count marts.mart_sleep_weekly)" -ge 1
           test "$(count marts.mart_workout_recovery)" -ge 1
+          # 3 long_sleep fixtures x 120 epochs, and x 12 vitals samples. The
+          # 4th sleep document is the nap, which these models exclude by design.
+          # Without this data the sub-daily models build empty and every test on
+          # them passes vacuously, which is the whole reason fixtures exist.
+          test "$(count staging.stg_sleep_phases)" -eq 360
+          test "$(count staging.stg_sleep_hr_hrv)" -eq 36
+          test "$(count marts.mart_sleep_architecture)" -eq 3
