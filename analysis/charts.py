@@ -11,6 +11,7 @@ import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
@@ -109,7 +110,105 @@ def chart_weekday():
     print("wrote", out)
 
 
+def chart_bedtime_cost():
+    """The README headline: what a later bedtime costs, and timing vs consistency.
+
+    Uses bedtime_start_local, the wall-clock time the ring recorded. Reading the
+    hour off the UTC timestamp instead understates the effect and adds a fake
+    seasonal swing as Finland moves between UTC+2 and UTC+3.
+    """
+    nights = q("""
+        SELECT day, sleep_score,
+               extract(hour FROM bedtime_start_local) * 60
+             + extract(minute FROM bedtime_start_local) AS bedtime_min
+        FROM staging.daily
+        WHERE bedtime_start_local IS NOT NULL AND sleep_score IS NOT NULL
+        ORDER BY day
+    """)
+    # Hours after 18:00, so an evening and the small hours sit on one axis
+    m = nights["bedtime_min"].astype(float)
+    nights["bedtime_h"] = np.where(m >= 18 * 60, m - 18 * 60, m + 6 * 60) / 60.0
+    nights["day"] = pd.to_datetime(nights["day"])
+
+    buckets = [
+        ("before\n23:00", (0, 5)),
+        ("23:00\nto 00:59", (5, 7)),
+        ("01:00\nto 01:59", (7, 8)),
+        ("02:00\nto 02:59", (8, 9)),
+        ("03:00\nor later", (9, 14)),
+    ]
+    labels, means, counts = [], [], []
+    for label, (lo, hi) in buckets:
+        sel = nights[(nights.bedtime_h >= lo) & (nights.bedtime_h < hi)]
+        labels.append(label)
+        means.append(sel.sleep_score.mean())
+        counts.append(len(sel))
+
+    slope, intercept = np.polyfit(nights.bedtime_h, nights.sleep_score, 1)
+    r = nights.bedtime_h.corr(nights.sleep_score)
+
+    # Weekly timing vs consistency: the comparison the headline rests on
+    weekly = (nights.set_index("day")
+                    .groupby(pd.Grouper(freq="W"))
+                    .agg(score=("sleep_score", "mean"),
+                         timing=("bedtime_h", "mean"),
+                         consistency=("bedtime_h", "std"),
+                         nights=("bedtime_h", "size")))
+    weekly = weekly[weekly.nights >= 5].dropna()
+    r_timing = weekly.timing.corr(weekly.score)
+    r_consistency = weekly.consistency.corr(weekly.score)
+
+    def residual(a, b):
+        return a - np.poly1d(np.polyfit(b, a, 1))(b)
+
+    r_timing_adj = np.corrcoef(residual(weekly.timing.values, weekly.consistency.values),
+                               residual(weekly.score.values, weekly.consistency.values))[0, 1]
+    r_consistency_adj = np.corrcoef(residual(weekly.consistency.values, weekly.timing.values),
+                                    residual(weekly.score.values, weekly.timing.values))[0, 1]
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4), width_ratios=[1.35, 1])
+
+    ax = axes[0]
+    ax.plot(labels, means, "o", color=BLUE, markersize=11)
+    for i, (mu, n) in enumerate(zip(means, counts)):
+        ax.annotate(f"{mu:.1f}\nn={n}", (i, mu), ha="center", va="bottom",
+                    xytext=(0, 9), textcoords="offset points",
+                    fontsize=9, color=INK_2)
+    ax.set_ylim(min(means) - 6, max(means) + 8)
+    ax.set_ylabel("average sleep score")
+    ax.set_title(f"Every hour later costs {abs(slope):.1f} sleep-score points",
+                 loc="left", fontsize=13, color=INK, fontweight="bold")
+    ax.grid(axis="x", visible=False)
+
+    ax = axes[1]
+    bars = ["timing\nalone", "consistency\nalone", "timing, holding\nconsistency fixed",
+            "consistency, holding\ntiming fixed"]
+    vals = [r_timing, r_consistency, r_timing_adj, r_consistency_adj]
+    colors = [BLUE, INK_2, BLUE, INK_2]
+    ax.barh(bars, vals, color=colors)
+    ax.axvline(0, color=INK, linewidth=1)
+    for i, v in enumerate(vals):
+        ax.annotate(f"{v:+.2f}", (v, i), xytext=(-34 if v < -0.05 else 6, 0),
+                    textcoords="offset points", va="center",
+                    fontsize=9, color=INK_2)
+    ax.set_xlim(-0.72, 0.28)
+    ax.set_xlabel(f"correlation with weekly sleep score  ({len(weekly)} weeks)")
+    ax.set_title("Timing carries it, not consistency",
+                 loc="left", fontsize=12, color=INK, fontweight="bold")
+    ax.grid(axis="y", visible=False)
+    ax.invert_yaxis()
+
+    fig.tight_layout()
+    out = os.path.join(ASSETS, "bedtime_cost.png")
+    fig.savefig(out, dpi=150)
+    print("wrote", out)
+    print(f"  nightly slope {slope:+.2f} pts/hour, r={r:+.3f}, n={len(nights)}")
+    print(f"  weekly timing r={r_timing:+.3f} -> {r_timing_adj:+.3f} adjusted for consistency")
+    print(f"  weekly consistency r={r_consistency:+.3f} -> {r_consistency_adj:+.3f} adjusted for timing")
+
+
 if __name__ == "__main__":
     os.makedirs(ASSETS, exist_ok=True)
     chart_three_signals()
     chart_weekday()
+    chart_bedtime_cost()

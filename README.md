@@ -15,14 +15,23 @@ activity, heart rate, and stress data, end to end.
 
 ## The headline finding
 
-![Every hour of later bedtime costs ~2.7 sleep points](assets/bedtime_cost.png)
+![Every hour of later bedtime costs about 2 sleep points, and timing beats consistency](assets/bedtime_cost.png)
 
-I first assumed bedtime *consistency* was what mattered. Tested on 176 weeks
-of data: consistency is nearly irrelevant for me (r = -0.12, n.s.) - *timing*
-dominates (r = -0.42, p < 1e-8). Every hour of later bedtime costs ~2.7
-sleep-score points; a night starting after 01:00 averages 13.4 points below
-one starting at 20-21, which equals the quality effect of ~2.7 fewer hours
-of sleep.
+I first assumed bedtime *consistency* was what mattered. It is not, and the
+reason is worth more than the headline: consistency looks like it matters
+(r = -0.23 across 176 weeks, p = 0.002) purely because I go to bed both later
+*and* more erratically, and those two move together (r = +0.47). Hold timing
+fixed and consistency drops to **r = +0.03** (p = 0.73), nothing. Hold
+consistency fixed and timing survives almost untouched at **r = -0.49**
+(p = 4e-12). Timing carries the entire effect.
+
+Every hour later costs about **2 sleep-score points** (r = -0.38 across 1,237
+nights, 2.6 points per hour when weeks are averaged). Nights starting before
+23:00 average 78.4 and nights starting at 03:00 or later average 63.5, a gap of
+14.9 points, which is what losing three hours of sleep does to the score.
+My median bedtime is 02:50, so this is not a hypothetical.
+
+Reproduce it with `make charts`; the analysis lives in `analysis/charts.py`.
 
 ## Findings so far
 
@@ -67,11 +76,25 @@ shown in
 effect sizes, autocorrelation-aware p-values, minimum detectable effects for
 every null, and a Benjamini-Hochberg pass over the whole inventory.
 
-**Can tonight's sleep be predicted before bed?** Partly: a random forest on
+**One bug worth documenting, because it hit the headline.** Every bedtime here
+was originally read in UTC. Postgres normalises a `timestamptz` to UTC, so
+taking the hour off it answers "what time was it in London" rather than "what
+time did I go to bed" - two hours out in winter, three in summer, plus a fake
+seasonal swing each time DST shifted. `stg_sleep_periods` now also exposes
+`bedtime_start_local`, read from the offset Oura itself recorded so nights
+abroad are handled correctly, and a dbt test fails loudly if that timestamp
+format ever changes. Fixing it made the headline stronger (timing r = -0.42 to
+-0.53) and improved the forecast, since its most important feature had been
+scrambled the whole time.
+
+**Can tonight's sleep be predicted before bed?** Partly: a ridge regression on
 pre-bed features (bedtime, day of week, recent history, day's activity) beats
-the naive baselines by ~13% (MAE 7.9 vs 9.1) on a time-based test split.
-Bedtime is the biggest controllable lever. Full modeling with baselines and
-honest evaluation in
+the naive baselines by 16% (MAE 7.64 vs 9.13) on a time-based test split, with
+a random forest slightly behind at 7.76. The linear model winning is the right
+kind of boring: with a correctly specified bedtime feature there is no
+curvature left for the trees to find. Bedtime is the biggest controllable lever
+by a wide margin, -4.3 points per standard deviation later. Full modeling with
+baselines and honest evaluation in
 [notebooks/02_sleep_forecasting.ipynb](notebooks/02_sleep_forecasting.ipynb).
 
 ## Privacy
