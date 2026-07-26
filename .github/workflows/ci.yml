@@ -57,13 +57,22 @@ jobs:
       - name: Run tests
         run: pytest -q
 
-      - name: Build and test the dbt staging layer
+      - name: Install dbt packages
+        run: dbt deps --project-dir dbt_project --profiles-dir dbt_project
+
+      - name: Build and test the dbt staging and marts layers
         run: dbt build --project-dir dbt_project --profiles-dir dbt_project
 
-      - name: Confirm the staging layer produced rows
+      - name: Confirm the models produced rows
         # Guards against the models silently returning nothing, which would
         # make every not_null and unique test trivially green.
         run: |
-          ROWS=$(psql -h localhost -p 5433 -U oura -d oura -tAc "select count(*) from staging.daily")
-          echo "staging.daily rows: $ROWS"
-          test "$ROWS" -eq 3
+          count() { psql -h localhost -p 5433 -U oura -d oura -tAc "select count(*) from $1"; }
+          echo "staging.daily            $(count staging.daily)"
+          echo "marts.mart_sleep_daily   $(count marts.mart_sleep_daily)"
+          echo "marts.mart_sleep_weekly  $(count marts.mart_sleep_weekly)"
+          echo "marts.mart_workout_recovery $(count marts.mart_workout_recovery)"
+          test "$(count staging.daily)" -eq 3
+          test "$(count marts.mart_sleep_daily)" -eq 3
+          test "$(count marts.mart_sleep_weekly)" -ge 1
+          test "$(count marts.mart_workout_recovery)" -ge 1

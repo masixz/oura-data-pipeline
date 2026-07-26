@@ -11,3 +11,8 @@ models:
     staging:
       +schema: staging
       +materialized: view
+    marts:
+      # Tables, not views: these carry window functions over the full history,
+      # and Metabase and the notebooks read them repeatedly.
+      +schema: marts
+      +materialized: table
