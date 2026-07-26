@@ -11,6 +11,17 @@ I have worn an Oura ring daily since 2022 and check the stats every morning.
 This project turns that habit into a data pipeline: my own sleep, readiness,
 activity, heart rate, and stress data, end to end.
 
+## The headline finding
+
+![Every hour of later bedtime costs ~2.7 sleep points](assets/bedtime_cost.png)
+
+I first assumed bedtime *consistency* was what mattered. Tested on 176 weeks
+of data: consistency is nearly irrelevant for me (r = -0.12, n.s.) - *timing*
+dominates (r = -0.42, p < 1e-8). Every hour of later bedtime costs ~2.7
+sleep-score points; a night starting after 01:00 averages 13.4 points below
+one starting at 20-21, which equals the quality effect of ~2.7 fewer hours
+of sleep.
+
 ## Findings so far
 
 ![Sleep score, HRV and lowest heart rate, monthly](assets/three_signals.png)
