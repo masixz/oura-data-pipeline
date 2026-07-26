@@ -63,6 +63,11 @@ jobs:
       - name: Build and test the dbt staging and marts layers
         run: dbt build --project-dir dbt_project --profiles-dir dbt_project
 
+      - name: Check source freshness
+        # The fixtures are inserted seconds earlier, so this passes here and
+        # exists to prove the check is wired up and the config parses.
+        run: dbt source freshness --project-dir dbt_project --profiles-dir dbt_project
+
       - name: Confirm the models produced rows
         # Guards against the models silently returning nothing, which would
         # make every not_null and unique test trivially green.
