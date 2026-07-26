@@ -1,5 +1,7 @@
 # Oura Data Pipeline
 
+[![CI](https://github.com/masixz/oura-data-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/masixz/oura-data-pipeline/actions/workflows/ci.yml)
+
 Four years of my own Oura Ring data: pulled through the Oura API v2 (OAuth2),
 loaded into PostgreSQL, analyzed with SQL and Python.
 
@@ -98,6 +100,7 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
 - `dbt_project/` — staging layer as dbt models: typed views over raw JSONB, with schema tests (unique, not_null, score ranges)
 - `notebooks/` — statistics (01), forecasting (02), REM investigation (03) and robustness testing (04), executed with outputs
 - `analysis/` — README chart generation plus `statistics.py`, the inference helpers behind notebook 04 (effective sample size, block bootstrap, within-week contrasts, FDR)
+- `.github/workflows/ci.yml` — every push to main and every pull request runs the test suite and `dbt build` against a Postgres service container, seeded with synthetic fixtures in `tests/fixtures/` so the schema tests check the JSONB extraction instead of passing against an empty table
 
 ```bash
 make refresh   # ingest -> dbt build -> charts
