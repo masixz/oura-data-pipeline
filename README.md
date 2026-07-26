@@ -27,9 +27,12 @@ of sleep.
 ![Sleep score, HRV and lowest heart rate, monthly](assets/three_signals.png)
 
 **The 2024 dip is real and physiological.** Sleep score, HRV, and night
-heart rate degraded together from late 2023 and bottomed out in spring 2024:
-rolling HRV sat below -1.5 sigma of its own distribution for 44 consecutive
-days (bottoming at -2.6 sigma), and all three signals recovered through 2025.
+heart rate degraded together from late 2023 and bottomed out in spring 2024,
+with large effects winter on winter: HRV -10 ms (d = 0.87), night heart rate
++4.6 bpm (d = 1.02), sleep score -9.4 points (d = 0.84). All three recovered
+through 2025. Rolling HRV stayed below -1.5 sigma of its own distribution from
+10 April to 3 June, bottoming at -2.6 sigma; that 44-day span says how long
+the excursion lasted, not how strong the evidence is.
 Full statistics in [notebooks/01_sleep_statistics.ipynb](notebooks/01_sleep_statistics.ipynb),
 including the Welch t-tests and the falsified late-bedtime hypothesis behind
 the Sunday-night effect.
@@ -39,15 +42,28 @@ the Sunday-night effect.
 **Sunday night is reliably my worst sleep** (average score 68.6 vs 73.8 for
 Monday night) across four years of data. Oura assigns each sleep to the
 wake-up day, so this is the classic Sunday-night effect, visible in n=173
-Sunday nights rather than anecdote.
+Sunday nights rather than anecdote. Tested by permuting days inside each week,
+which keeps seasonal drift out of the comparison: 3.4 points below the week
+average, p = 0.0007, 95% CI 1.3 to 5.5 points.
 
 **Why is my REM low? Not for the reasons I assumed.** Nine hypotheses tested
 in assumption -> check -> visualisation format
 ([notebooks/03_rem_investigation.ipynb](notebooks/03_rem_investigation.ipynb)):
-stress, workouts, HRV, illness, and late bedtimes all came back clean. The
+stress, workouts, and late bedtimes all came back clean, and at ~1,000 nights
+each those nulls are strong enough to rule out anything above r = 0.09. The
 only strong lever is duration (r = 0.80, ~15 min REM per extra hour of
 sleep), with the morning end carrying a disproportionate REM share. My REM
 is not damaged - it is starved of an 8th hour of sleep.
+
+**Two findings did not survive their own robustness check.** A multi-year REM
+decline and a weekend REM effect were both reported as significant on
+p-values that assumed independent nights. Re-tested properly, the REM decline
+is better explained as a measurement step change at an Oura algorithm update,
+and the weekend effect is inconclusive. Both are withdrawn, with the working
+shown in
+[notebooks/04_statistical_robustness.ipynb](notebooks/04_statistical_robustness.ipynb):
+effect sizes, autocorrelation-aware p-values, minimum detectable effects for
+every null, and a Benjamini-Hochberg pass over the whole inventory.
 
 **Can tonight's sleep be predicted before bed?** Partly: a random forest on
 pre-bed features (bedtime, day of week, recent history, day's activity) beats
@@ -80,8 +96,8 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
 
 - `ingestion/` — OAuth2 flow + idempotent API ingestion (upsert on document id; re-runs never duplicate), covered by pytest
 - `dbt_project/` — staging layer as dbt models: typed views over raw JSONB, with schema tests (unique, not_null, score ranges)
-- `notebooks/` — statistics (01) and forecasting (02), executed with outputs
-- `analysis/` — README chart generation (aggregates only)
+- `notebooks/` — statistics (01), forecasting (02), REM investigation (03) and robustness testing (04), executed with outputs
+- `analysis/` — README chart generation plus `statistics.py`, the inference helpers behind notebook 04 (effective sample size, block bootstrap, within-week contrasts, FDR)
 
 ```bash
 make refresh   # ingest -> dbt build -> charts
