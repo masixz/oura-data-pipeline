@@ -87,14 +87,32 @@ format ever changes. Fixing it made the headline stronger (timing r = -0.42 to
 -0.53) and improved the forecast, since its most important feature had been
 scrambled the whole time.
 
-**Can tonight's sleep be predicted before bed?** Partly: a ridge regression on
-pre-bed features (bedtime, day of week, recent history, day's activity) beats
-the naive baselines by 16% (MAE 7.64 vs 9.13) on a time-based test split, with
-a random forest slightly behind at 7.76. The linear model winning is the right
-kind of boring: with a correctly specified bedtime feature there is no
-curvature left for the trees to find. Bedtime is the biggest controllable lever
-by a wide margin, -4.3 points per standard deviation later. Full modeling with
-baselines and honest evaluation in
+**Can tonight's sleep be predicted before bed? Partly, and not in the way that
+would be useful.** A ridge regression on pre-bed features beats the naive
+baselines by about 14% under rolling-origin cross-validation (MAE 7.64 against
+9.12 on the final split, and the paired 95% CI on the improvement is [+0.87,
++2.06] points, so it is real). Random forest lands at 7.80 and gradient boosting
+at 8.06, with the same ordering across every fold: reasonable evidence that the
+relationship is close to linear rather than ridge getting lucky once.
+
+Two caveats the headline number hides.
+
+**It needs about a year of history.** Trained on 206 nights it is 11% *worse*
+than doing nothing. From the second fold onward it settles at +14% and stays
+there. Quoting the single most recent split would have been the friendliest
+possible framing, so the cross-validated figure is the one above.
+
+**It cannot see a bad night coming**, which is the only forecast worth having.
+Predictions occupy 41% of the outcome's spread and never leave a 39-point band
+while reality spans 59. On the 21 nights scoring under 60 it predicts 71.6
+against an actual 51.0, and asked to flag those nights it catches none of them
+at any usable threshold. The 14% gain comes from being less wrong at the
+extremes, not from anticipating them.
+
+Bedtime is still the biggest controllable lever, -4.3 points per standard
+deviation later, and that remains the actionable result. The model is evidence
+about which lever matters rather than a working forecast. Cross-validation,
+paired interval estimates and the full error analysis in
 [notebooks/02_sleep_forecasting.ipynb](notebooks/02_sleep_forecasting.ipynb).
 
 ## What this data cannot tell you
