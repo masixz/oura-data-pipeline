@@ -67,32 +67,32 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
 -- On 2026-01-02 the night is short (5.25 h) and the nap is longer (6 h), so
 -- ordering by duration alone would pick the wrong row.
 ('sleep', 'sp-2026-01-01-long', '2026-01-01', '{
-  "type": "long_sleep", "bedtime_start": "2025-12-31T23:10:00+02:00",
-  "bedtime_end": "2026-01-01T07:05:00+02:00", "total_sleep_duration": 25500,
+  "type": "long_sleep", "bedtime_start": "2025-12-31T23:10:00.000+02:00",
+  "bedtime_end": "2026-01-01T07:05:00.000+02:00", "total_sleep_duration": 25500,
   "time_in_bed": 28500, "efficiency": 91, "latency": 900,
   "deep_sleep_duration": 5400, "rem_sleep_duration": 4500,
   "light_sleep_duration": 15600, "awake_time": 3000,
   "average_heart_rate": 54.5, "lowest_heart_rate": 48,
   "average_hrv": 62, "average_breath": 14.2}'),
 ('sleep', 'sp-2026-01-02-long', '2026-01-02', '{
-  "type": "long_sleep", "bedtime_start": "2026-01-02T01:40:00+02:00",
-  "bedtime_end": "2026-01-02T07:20:00+02:00", "total_sleep_duration": 18900,
+  "type": "long_sleep", "bedtime_start": "2026-01-02T01:40:00.000+02:00",
+  "bedtime_end": "2026-01-02T07:20:00.000+02:00", "total_sleep_duration": 18900,
   "time_in_bed": 20400, "efficiency": 84, "latency": 1500,
   "deep_sleep_duration": 3300, "rem_sleep_duration": 2700,
   "light_sleep_duration": 12900, "awake_time": 1500,
   "average_heart_rate": 61.2, "lowest_heart_rate": 56,
   "average_hrv": 41, "average_breath": 15.1}'),
 ('sleep', 'sp-2026-01-02-nap', '2026-01-02', '{
-  "type": "late_nap", "bedtime_start": "2026-01-02T13:00:00+02:00",
-  "bedtime_end": "2026-01-02T19:30:00+02:00", "total_sleep_duration": 21600,
+  "type": "late_nap", "bedtime_start": "2026-01-02T13:00:00.000+02:00",
+  "bedtime_end": "2026-01-02T19:30:00.000+02:00", "total_sleep_duration": 21600,
   "time_in_bed": 23400, "efficiency": 88, "latency": 300,
   "deep_sleep_duration": 3600, "rem_sleep_duration": 2400,
   "light_sleep_duration": 15600, "awake_time": 1800,
   "average_heart_rate": 63.0, "lowest_heart_rate": 59,
   "average_hrv": 38, "average_breath": 15.6}'),
 ('sleep', 'sp-2026-01-03-long', '2026-01-03', '{
-  "type": "long_sleep", "bedtime_start": "2026-01-02T22:30:00+02:00",
-  "bedtime_end": "2026-01-03T07:00:00+02:00", "total_sleep_duration": 29100,
+  "type": "long_sleep", "bedtime_start": "2026-01-02T22:30:00.000+02:00",
+  "bedtime_end": "2026-01-03T07:00:00.000+02:00", "total_sleep_duration": 29100,
   "time_in_bed": 30600, "efficiency": 96, "latency": 600,
   "deep_sleep_duration": 6600, "rem_sleep_duration": 6000,
   "light_sleep_duration": 16500, "awake_time": 1500,
@@ -102,12 +102,12 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
 -- workouts ----------------------------------------------------------------
 ('workout', 'wk-2026-01-01-a', '2026-01-01', '{
   "activity": "walking", "intensity": "easy", "calories": 180,
-  "start_datetime": "2026-01-01T17:00:00+02:00",
-  "end_datetime": "2026-01-01T18:00:00+02:00"}'),
+  "start_datetime": "2026-01-01T17:00:00.000+02:00",
+  "end_datetime": "2026-01-01T18:00:00.000+02:00"}'),
 ('workout', 'wk-2026-01-03-a', '2026-01-03', '{
   "activity": "strength_training", "intensity": "hard", "calories": 420,
-  "start_datetime": "2026-01-03T18:15:00+02:00",
-  "end_datetime": "2026-01-03T19:30:00+02:00"}')
+  "start_datetime": "2026-01-03T18:15:00.000+02:00",
+  "end_datetime": "2026-01-03T19:30:00.000+02:00"}')
 
 ON CONFLICT (endpoint, doc_id) DO UPDATE
     SET payload = EXCLUDED.payload, ingested_at = now();

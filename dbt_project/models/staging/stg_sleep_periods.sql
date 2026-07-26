@@ -4,6 +4,16 @@ select
     payload->>'type'                                   as type,
     (payload->>'bedtime_start')::timestamptz           as bedtime_start,
     (payload->>'bedtime_end')::timestamptz             as bedtime_end,
+    -- Wall-clock time as the ring recorded it. Casting to timestamptz
+    -- normalises to UTC, so reading the hour off it answers "what time was it
+    -- in London", not "what time did I go to bed". Helsinki runs UTC+2 or +3
+    -- depending on DST, which would also inject a fake 1-hour seasonal swing.
+    -- Oura embeds the offset that was actually in force, including abroad, so
+    -- the leading 19 characters are the local clock and are what circadian
+    -- questions need. Format is asserted by assert_bedtime_format.
+    (left(payload->>'bedtime_start', 19))::timestamp   as bedtime_start_local,
+    (left(payload->>'bedtime_end', 19))::timestamp     as bedtime_end_local,
+    right(payload->>'bedtime_start', 6)                as tz_offset,
     (payload->>'total_sleep_duration')::int / 3600.0   as sleep_hours,
     (payload->>'time_in_bed')::int / 3600.0            as time_in_bed_hours,
     (payload->>'efficiency')::int                      as efficiency,
