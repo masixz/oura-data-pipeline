@@ -97,6 +97,73 @@ by a wide margin, -4.3 points per standard deviation later. Full modeling with
 baselines and honest evaluation in
 [notebooks/02_sleep_forecasting.ipynb](notebooks/02_sleep_forecasting.ipynb).
 
+## What this data cannot tell you
+
+Everything above is one person's ring, so the honest framing is a case study
+rather than a result. The specific limits are worth naming, because most of them
+bound a claim I actually made.
+
+**n = 1.** Nothing here generalises. Duration dominating my sleep score is a
+fact about me. The method transfers; the numbers do not.
+
+**Observational, so no causal claims.** I never randomised a bedtime. Every
+correlation here is compatible with reverse causation or a common cause: a
+stressful week can produce both a late bedtime and a bad night, and this design
+cannot separate that from bedtime causing the bad night. The one natural
+experiment in the data, the 2024 dip, is confounded by everything else that was
+happening in my life at the time, which is precisely the thing I have no data
+on.
+
+**86.8% coverage, and it is thinnest where it matters most.** 1,244 nights
+across 1,433 calendar days, with 15 gaps longer than three days including two
+of roughly four weeks. Coverage is not uniform: the baseline winter used for the
+dip comparison is 91.4% complete, the dip winter only 84.2%, and the 44-day HRV
+trough itself 80%. All of 2024 sits at 81.4% against 91.5% for 2025. If I
+stopped wearing the ring during bad stretches, the dip is understated; if I
+stopped during travel and good stretches, it is overstated. The nights right
+after a long gap do score lower (68.2 against 71.5), but with only 15 such
+nights that comparison proves nothing either way (d = -0.27, p = 0.40). So the
+direction of the bias is unknown and its size is unquantified. The dip's effect
+sizes are large enough (d = 0.84 to 1.02) that this is unlikely to have invented
+it, and small enough gaps that I would not defend the exact magnitude.
+
+**A consumer wearable is not a sleep lab.** Oura's stage classification agrees
+with polysomnography roughly 70% of the time epoch by epoch, so REM and deep
+figures are useful as trends and unreliable as absolute values. Worse, the
+staging algorithm changed inside my dataset: REM share steps from 20.1% before
+November 2023 to 17.2% after January 2024 (d = 0.62), which is why the
+multi-year REM decline was withdrawn. Any comparison spanning that boundary is
+partly measuring a software update.
+
+**The most explanatory variables were never recorded.** No alcohol, caffeine,
+late meals, work stress, or illness logs, because I did not keep them. Oura's
+own stress metric only starts 2023-09-12, so the stress hypothesis rests on 935
+of 1,244 nights and says nothing about the first year. Illness is proxied by
+body-temperature deviation, which crosses 0.5 C on 32 days and 1.0 C on 2, so
+that hypothesis was withdrawn as untestable rather than reported as negative.
+The `session` endpoint is ingested and contains 2 documents. Absence of these
+variables is the single largest reason the forecast plateaus at MAE 7.64.
+
+**Nights are not independent observations, which most statistics assume.** HRV
+carries about 48 independent observations across 1,237 nights, REM share about
+70. Every claim above is re-tested against that in notebook 04, and two did not
+survive. Any p-value in this repo that is not from notebook 04 should be read as
+optimistic.
+
+**The analysis was not pre-registered.** I chose windows, thresholds and
+transformations after seeing the data. Benjamini-Hochberg across the 15 headline
+tests controls for the comparisons I ran and reported; it cannot control for the
+ones I tried and abandoned. The falsified hypotheses are written up precisely so
+that this is auditable rather than hidden.
+
+**Measuring myself changes me.** I check these numbers every morning, so my
+behaviour responds to them. The bedtime finding in particular is contaminated by
+the fact that I now know about the bedtime finding.
+
+**Only the daily long sleep is analysed.** `daily` keeps one sleep period per
+day, so 789 short `sleep` fragments, 126 `rest` periods and 57 naps are outside
+every result here. Fragmented nights are invisible in the wide table.
+
 ## Privacy
 
 The code is public. The data is not.
