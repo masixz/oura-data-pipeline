@@ -66,6 +66,31 @@ only strong lever is duration (r = 0.80, ~15 min REM per extra hour of
 sleep), with the morning end carrying a disproportionate REM share. My REM
 is not damaged - it is starved of an 8th hour of sleep.
 
+**The ring records more than the nightly summaries, and the extra resolution
+settled two arguments.** Under every night sit 130,305 heart-rate samples at
+5-minute resolution, the same number of HRV samples, and 1.3 million
+30-second sleep-stage and movement readings. Oura does not expose the raw PPG
+waveform or accelerometer axes through the public API, so this is their
+processed per-epoch output rather than true raw sensor data, but it is enough to
+measure *when* things happen inside a night instead of only how much.
+
+Two results came out of it
+([notebooks/05_sleep_architecture.ipynb](notebooks/05_sleep_architecture.ipynb)):
+REM runs 8.3% of the first third of the night and 22.3% of the last while deep
+sleep falls from 37.4% to 5.1%, confirming directly what notebook 03 could only
+infer from a correlation. And Oura's own `sleep_algorithm_version` field, sitting
+unparsed in the payload since the first ingest, shows that **v2 moved roughly ten
+percentage points of deep sleep into light on 2023-06-21**: deep drops from 26.0%
+to 18.0% and light rises from 43.7% to 56.3% overnight, and out of 1,146 possible
+split points in four years only four produce a sharper break, all within days of
+the same date. Any comparison of sleep stages across that boundary is partly
+measuring a software release.
+
+That also corrects this project. A step change in REM had been attributed to "an
+algorithm update around November 2023", a date read off a chart. The real
+boundary is five months earlier, the affected signal was deep sleep rather than
+REM, and the answer was recorded in the raw data the whole time.
+
 **Two findings did not survive their own robustness check.** A multi-year REM
 decline and a weekend REM effect were both reported as significant on
 p-values that assumed independent nights. Re-tested properly, the REM decline
@@ -227,7 +252,8 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
   - `mart_sleep_daily`, one row per night: lags, trailing windows, within-week deviations, bedtime in local hours, coverage flags
   - `mart_sleep_weekly`, one row per week: timing and consistency side by side, week-over-week deltas, quartiles, and a gaps-and-islands grouping that turns "a bad spell" into a queryable object. The longest run below my own average is 17 consecutive weeks, starting three months before the window notebook 01 tested
   - `mart_workout_recovery`, one row per training day joined to the night after it and to that night's own trailing baseline. 1,106 workouts that were previously sitting unused
-- `notebooks/` — statistics (01), forecasting (02), REM investigation (03) and robustness testing (04), executed with outputs
+  - `mart_sleep_architecture`, one row per night built from the 30-second hypnogram: stage shares by third of the night, sleep onset and REM latency, WASO, awakenings, HR nadir timing, and the scoring algorithm version. Fed by two sub-daily staging models that unnest 130k vitals samples and 1.3M stage epochs out of the raw JSON
+- `notebooks/` — statistics (01), forecasting (02), REM investigation (03), robustness testing (04) and sleep architecture from the sub-daily series (05), executed with outputs
 - `analysis/` — README chart generation plus `statistics.py`, the inference helpers behind notebook 04 (effective sample size, block bootstrap, within-week contrasts, FDR)
 - `.github/workflows/ci.yml` — every push to main and every pull request runs the test suite and `dbt build` against a Postgres service container, seeded with synthetic fixtures in `tests/fixtures/` so the schema tests check the JSONB extraction instead of passing against an empty table
 

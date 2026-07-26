@@ -68,6 +68,11 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
 -- ordering by duration alone would pick the wrong row.
 ('sleep', 'sp-2026-01-01-long', '2026-01-01', '{
   "type": "long_sleep", "bedtime_start": "2025-12-31T23:10:00.000+02:00",
+  "sleep_algorithm_version": "v2",
+  "sleep_phase_30_sec": "444411111111111111111111111111111122222222222222222222111111111122222222222222222222333333333333333322222222222244444444",
+  "movement_30_sec": "221111111111111111111111111111111112111211121112111211111111111111211121112111211121111111111111111112121212121233333333",
+  "heart_rate": {"interval": 300.0, "timestamp": "2025-12-31T23:10:00.000+02:00", "items": [70, 68, 65, 62, 60, 58, 57, 57, 58, 60, 62, 64]},
+  "hrv": {"interval": 300.0, "timestamp": "2025-12-31T23:10:00.000+02:00", "items": [40, 44, 48, 52, 55, 58, 60, 62, 64, 66, 68, 65]},
   "bedtime_end": "2026-01-01T07:05:00.000+02:00", "total_sleep_duration": 25500,
   "time_in_bed": 28500, "efficiency": 91, "latency": 900,
   "deep_sleep_duration": 5400, "rem_sleep_duration": 4500,
@@ -76,6 +81,11 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
   "average_hrv": 62, "average_breath": 14.2}'),
 ('sleep', 'sp-2026-01-02-long', '2026-01-02', '{
   "type": "long_sleep", "bedtime_start": "2026-01-02T01:40:00.000+02:00",
+  "sleep_algorithm_version": "v2",
+  "sleep_phase_30_sec": "444411111111111111111111111111111122222222222222222222111111111122222222222222222222333333333333333322222222222224444444",
+  "movement_30_sec": "221111111111111111111111111111111112111211121112111211111111111111211121112111211121111111111111111112121212121233333331",
+  "heart_rate": {"interval": 300.0, "timestamp": "2026-01-02T01:40:00.000+02:00", "items": [74, 71, 68, 66, 64, 63, 62, 62, 63, 65, 67, 69]},
+  "hrv": {"interval": 300.0, "timestamp": "2026-01-02T01:40:00.000+02:00", "items": [35, 38, 42, 45, 48, 50, 52, 54, 55, 57, 58, 56]},
   "bedtime_end": "2026-01-02T07:20:00.000+02:00", "total_sleep_duration": 18900,
   "time_in_bed": 20400, "efficiency": 84, "latency": 1500,
   "deep_sleep_duration": 3300, "rem_sleep_duration": 2700,
@@ -84,6 +94,11 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
   "average_hrv": 41, "average_breath": 15.1}'),
 ('sleep', 'sp-2026-01-02-nap', '2026-01-02', '{
   "type": "late_nap", "bedtime_start": "2026-01-02T13:00:00.000+02:00",
+  "sleep_algorithm_version": "v2",
+  "sleep_phase_30_sec": "444411111111111111111111111111111122222222222222222222111111111122222222222222222222333333333333333322222222222222444444",
+  "movement_30_sec": "221111111111111111111111111111111112111211121112111211111111111111211121112111211121111111111111111112121212121212333333",
+  "heart_rate": {"interval": 300.0, "timestamp": "2026-01-02T13:00:00.000+02:00", "items": [66, 64, 61, 59, 57, 55, 54, 54, 55, 57, 59, 61]},
+  "hrv": {"interval": 300.0, "timestamp": "2026-01-02T13:00:00.000+02:00", "items": [50, 55, 60, 64, 68, 71, 74, 76, 78, 80, 82, 79]},
   "bedtime_end": "2026-01-02T19:30:00.000+02:00", "total_sleep_duration": 21600,
   "time_in_bed": 23400, "efficiency": 88, "latency": 300,
   "deep_sleep_duration": 3600, "rem_sleep_duration": 2400,
@@ -92,6 +107,11 @@ INSERT INTO raw.oura_documents (endpoint, doc_id, day, payload) VALUES
   "average_hrv": 38, "average_breath": 15.6}'),
 ('sleep', 'sp-2026-01-03-long', '2026-01-03', '{
   "type": "long_sleep", "bedtime_start": "2026-01-02T22:30:00.000+02:00",
+  "sleep_algorithm_version": "v2",
+  "sleep_phase_30_sec": "444411111111111111111111111111111122222222222222222222111111111122222222222222222222333333333333333322222222222222244444",
+  "movement_30_sec": "221111111111111111111111111111111112111211121112111211111111111111211121112111211121111111111111111112121212121212333331",
+  "heart_rate": {"interval": 300.0, "timestamp": "2026-01-02T22:30:00.000+02:00", "items": [72, 70, 69, 68, 67, 67, 68, 69, 70, 71, 72, 73]},
+  "hrv": {"interval": 300.0, "timestamp": "2026-01-02T22:30:00.000+02:00", "items": [30, 32, 34, 35, 36, 37, 37, 38, 38, 39, 40, 38]},
   "bedtime_end": "2026-01-03T07:00:00.000+02:00", "total_sleep_duration": 29100,
   "time_in_bed": 30600, "efficiency": 96, "latency": 600,
   "deep_sleep_duration": 6600, "rem_sleep_duration": 6000,

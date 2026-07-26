@@ -102,3 +102,38 @@ models:
           - accepted_values:
               values: [1, 2, 3, 4]
               quote: false
+
+  - name: mart_sleep_architecture
+    description: >
+      Sleep architecture per night from the 30-second hypnogram and 5-minute
+      vitals: stage shares by third of the night, standard sleep-medicine
+      latencies, WASO, awakenings, and HR/HRV trajectory. Carries
+      sleep_algorithm_version because v2 reclassified roughly ten points of deep
+      sleep as light on 2023-06-21, so any stage analysis spanning that date has
+      to control for it.
+    columns:
+      - name: doc_id
+        data_tests: [not_null, unique]
+      - name: day
+        data_tests: [not_null]
+      - name: epochs_in_sleep_period
+        data_tests: [not_null]
+      - name: rem_pct
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+      - name: deep_pct
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+      - name: waso_min
+        data_tests: [not_null]
+      - name: sleep_algorithm_version
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['pre-versioning', 'v1', 'v2']
