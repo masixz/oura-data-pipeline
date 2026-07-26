@@ -164,6 +164,24 @@ the fact that I now know about the bedtime finding.
 day, so 789 short `sleep` fragments, 126 `rest` periods and 57 naps are outside
 every result here. Fragmented nights are invisible in the wide table.
 
+**Seven nights never consolidated into sleep at all, and they are the worst
+seven.** They carry a sleep score but no `long_sleep` period, only short
+fragments and rest, so bedtime and duration are null on them. Scores run 24 to
+50 against a 71 average. Any analysis that drops nulls therefore discards the
+seven worst nights on record without mentioning it, which means every bedtime
+result here is estimated on a sample with the extremes trimmed off one end. The
+direction of that bias depends on what time I went to bed on those nights, which
+is exactly what was not recorded. `mart_sleep_daily` keeps them with
+`has_long_sleep = false` so the exclusion has to be deliberate from now on.
+
+**`intensity` on workouts is unusable and calories are a third missing.** 1,082
+of 1,106 workouts are tagged "moderate", 21 "easy" and 3 "hard", so intensity
+carries no signal. Calories are null on 407 workouts, mostly walks. Training
+load is therefore measured in minutes, which is complete on every row. An
+earlier version of `mart_workout_recovery` ranked load by calories with
+`ntile(4) over (order by total_calories)`, which sorts nulls last in Postgres and
+so labelled a quartile of missing data as the heaviest training.
+
 ## Privacy
 
 The code is public. The data is not.
@@ -187,13 +205,16 @@ Oura API v2 (OAuth2) -> Python ingestion -> PostgreSQL (Docker)
 ```
 
 - `ingestion/` — OAuth2 flow + idempotent API ingestion (upsert on document id; re-runs never duplicate), covered by pytest
-- `dbt_project/` — staging layer as dbt models: typed views over raw JSONB, with schema tests (unique, not_null, score ranges)
+- `dbt_project/` — two layers. **Staging**: typed views over the raw JSONB, one per endpoint, with schema tests. **Marts**: three tables at the grains the questions are actually asked at, with the feature logic the notebooks used to duplicate in pandas. 46 tests across both, plus `dbt_utils`
+  - `mart_sleep_daily`, one row per night: lags, trailing windows, within-week deviations, bedtime in local hours, coverage flags
+  - `mart_sleep_weekly`, one row per week: timing and consistency side by side, week-over-week deltas, quartiles, and a gaps-and-islands grouping that turns "a bad spell" into a queryable object. The longest run below my own average is 17 consecutive weeks, starting three months before the window notebook 01 tested
+  - `mart_workout_recovery`, one row per training day joined to the night after it and to that night's own trailing baseline. 1,106 workouts that were previously sitting unused
 - `notebooks/` — statistics (01), forecasting (02), REM investigation (03) and robustness testing (04), executed with outputs
 - `analysis/` — README chart generation plus `statistics.py`, the inference helpers behind notebook 04 (effective sample size, block bootstrap, within-week contrasts, FDR)
 - `.github/workflows/ci.yml` — every push to main and every pull request runs the test suite and `dbt build` against a Postgres service container, seeded with synthetic fixtures in `tests/fixtures/` so the schema tests check the JSONB extraction instead of passing against an empty table
 
 ```bash
-make refresh   # ingest -> dbt build -> charts
+make refresh   # ingest -> dbt deps + build -> charts
 make test      # pytest
 ```
 

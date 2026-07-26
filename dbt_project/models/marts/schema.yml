@@ -1,0 +1,104 @@
+version: 2
+
+models:
+  - name: mart_sleep_daily
+    description: >
+      One row per night with the derived features the notebooks used to rebuild
+      in pandas. Rolling windows are date-based rather than row-based, so the
+      189 missing calendar days shorten a window instead of silently widening
+      it. roll7_nights records how many nights each window actually contained.
+    columns:
+      - name: day
+        description: Wake-up day. Oura files each night under the day it ended.
+        data_tests: [not_null, unique]
+      - name: sleep_score
+        data_tests: [not_null]
+      - name: week_start
+        data_tests: [not_null]
+      - name: has_long_sleep
+        description: >
+          False on the 7 nights that fragmented into short segments with no
+          consolidated sleep. Those are the worst nights on record and have null
+          bedtime and duration, so filtering them out has to be deliberate.
+        data_tests: [not_null]
+      - name: bedtime_hours
+        description: >
+          Hours after 18:00, local wall clock: 0 is 18:00, 8 is 02:00. Null
+          exactly when has_long_sleep is false, which assert_bedtime_null_only_without_long_sleep
+          enforces.
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 24
+      - name: roll7_nights
+        description: Nights present in the trailing 7-day window, 0 to 7.
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 7
+      - name: score_percentile
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+
+  - name: mart_sleep_weekly
+    description: >
+      One row per calendar week, the grain the headline timing-versus-consistency
+      finding lives at. Coverage is a first-class column because it runs 87%
+      overall and 80% through the 2024 dip, so weeks are not equally trustworthy.
+    columns:
+      - name: week_start
+        data_tests: [not_null, unique]
+      - name: nights_logged
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 7
+      - name: coverage
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+      - name: mean_score
+        data_tests: [not_null]
+      - name: score_quartile
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+              quote: false
+      - name: spell_length_weeks
+        description: >
+          Length of the run of consecutive weeks on the same side of the all-time
+          average, from a gaps-and-islands grouping.
+        data_tests: [not_null]
+
+  - name: mart_workout_recovery
+    description: >
+      One row per training day, joined to the night that followed and to that
+      night's own trailing baseline. Load is measured in minutes because calories
+      are null on 407 of 1,106 workouts; intensity is passed through but is
+      effectively constant and should not be modelled on.
+    columns:
+      - name: workout_day
+        data_tests: [not_null, unique]
+      - name: following_night
+        data_tests: [not_null]
+      - name: workouts
+        data_tests: [not_null]
+      - name: total_workout_minutes
+        description: Complete on every row, which is why load is ranked on it.
+        data_tests: [not_null]
+      - name: sleep_score
+        data_tests: [not_null]
+      - name: load_quartile
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+              quote: false
